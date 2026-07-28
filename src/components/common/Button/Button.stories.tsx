@@ -26,3 +26,12 @@ export const Contained: Story = {
     color: "error",
   },
 };
+
+export const WithIcon: Story = {
+  args: {
+    children: "新規追加",
+    variant: "contained",
+    color: "primary",
+    withIcon: true,
+  },
+};
