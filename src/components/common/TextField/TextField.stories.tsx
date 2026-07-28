@@ -11,17 +11,31 @@ export default meta;
 
 type Story = StoryObj<typeof TextFieldComponent>;
 
+export const Default: Story = {
+  args: {
+    placeholder: "値を入力",
+  },
+};
+
 export const Password: Story = {
   args: {
-    label: "メールアドレス",
-    variant: "outlined",
+    placeholder: "パスワードを入力",
     type: "password",
   },
 };
 
-export const Outlined: Story = {
+export const Disabled: Story = {
   args: {
-    label: "メールアドレス",
-    variant: "outlined",
+    placeholder: "この項目は編集できません",
+    disabled: true,
+  },
+};
+
+export const Validation: Story = {
+  args: {
+    placeholder: "値を入力",
+    type: "password",
+    error: true,
+    helperText: "正しい値を入力してください",
   },
 };
