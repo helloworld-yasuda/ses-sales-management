@@ -3,16 +3,22 @@ import { MenuItem, Select, SelectProps } from "@mui/material";
 type SelectBoxComponentProps = SelectProps & {
   options: { label: string; value: string }[];
   placeholder?: string;
+  value: string;
+  onChange: SelectProps["onChange"];
 };
 
 export const SelectBoxComponent = ({
   options,
   placeholder,
+  value,
+  onChange,
   ...props
 }: SelectBoxComponentProps) => {
   return (
     <Select
       {...props}
+      value={value}
+      onChange={onChange}
       displayEmpty={!!placeholder}
       renderValue={(selected) => {
         if (selected == null || selected === "") {

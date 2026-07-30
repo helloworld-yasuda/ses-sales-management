@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
+import { useState } from "react";
 import SelectBoxComponent from "./SelectBox";
 
 const meta: Meta<typeof SelectBoxComponent> = {
@@ -18,6 +19,17 @@ const options: { label: string; value: string }[] = [
 ];
 
 export const Default: Story = {
+  render: (args) => {
+    const [value, setValue] = useState("");
+
+    return (
+      <SelectBoxComponent
+        {...args}
+        value={value}
+        onChange={(event) => setValue(String(event.target.value))}
+      />
+    );
+  },
   args: {
     placeholder: "選択してください",
     options,
