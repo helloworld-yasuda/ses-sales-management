@@ -20,6 +20,15 @@ export const Default: Story = {
   args: {
     href: "/edit",
     children: "編集",
+    onClick: (event) => {
+      event.preventDefault(); // クリック時にページ遷移しないようにする
+    },
+    sx: {
+      color: "primary.main",
+      "&:visited": {
+        color: "primary.main",
+      },
+    },
   },
 };
 
@@ -27,6 +36,9 @@ export const Visited: Story = {
   args: {
     href: "/visited",
     children: "詳細",
+    onClick: (event) => {
+      event.preventDefault(); // クリック時にページ遷移しないようにする
+    },
     sx: {
       color: "#7C3AED",
     },
