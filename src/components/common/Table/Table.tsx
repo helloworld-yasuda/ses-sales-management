@@ -11,20 +11,23 @@ import type { ReactNode } from "react";
 
 export type TableRowData = {
   id: number;
-} & Record<string, string | number>;
+};
 
-export type TableColumn = {
+export type TableColumn<T extends TableRowData> = {
   label: string;
-  key: string;
-  render?: (row: TableRowData) => ReactNode;
+  key: keyof T;
+  render?: (row: T) => ReactNode;
 };
 
-type TableComponentProps = {
-  columns: TableColumn[];
-  rows: TableRowData[];
+type TableComponentProps<T extends TableRowData> = {
+  columns: TableColumn<T>[];
+  rows: T[];
 };
 
-export const TableComponent = ({ columns, rows }: TableComponentProps) => {
+export const TableComponent = <T extends TableRowData>({
+  columns,
+  rows,
+}: TableComponentProps<T>) => {
   return (
     <TableContainer component={Paper} elevation={0} sx={{ borderRadius: 2 }}>
       <Table>
@@ -32,11 +35,11 @@ export const TableComponent = ({ columns, rows }: TableComponentProps) => {
           <TableRow>
             {columns.map((column) => (
               <TableCell
-                key={column.key}
+                key={String(column.key)}
                 sx={{
                   bgcolor: "#F1F5F9",
-                  color: "#64748B",
-                  fontWeight: 600,
+                  color: "#666666",
+                  fontWeight: 500,
                   borderBottom: "1px solid #E2E8F0",
                 }}
               >
@@ -50,10 +53,14 @@ export const TableComponent = ({ columns, rows }: TableComponentProps) => {
             <TableRow key={row.id} hover>
               {columns.map((column) => (
                 <TableCell
-                  key={column.key}
-                  sx={{ borderBottom: "1px solid #E2E8F0" }}
+                  key={String(column.key)}
+                  sx={{
+                    borderBottom: "1px solid #E2E8F0",
+                  }}
                 >
-                  {column.render ? column.render(row) : row[column.key]}
+                  {column.render
+                    ? column.render(row)
+                    : String(row[column.key])}
                 </TableCell>
               ))}
             </TableRow>
