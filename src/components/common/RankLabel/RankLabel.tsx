@@ -9,6 +9,7 @@ export const RankLabelComponent = ({ rank }: RankLabelProps) => {
   return (
     <Typography
       sx={{
+        textAlign: "center",
         borderRadius: "4px",
         px: 0.5,
         py: 1,

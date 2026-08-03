@@ -8,8 +8,9 @@ const StatusLabelComponent = (props: TypographyProps) => {
         bgcolor: "#F1F5F9",
         color: "#64748B",
         borderRadius: "4px",
-        px: 0.5,
-        py: 1,
+        px: 1,
+        py: 0.5,
+        fontSize: 12,
       }}
     />
   );
