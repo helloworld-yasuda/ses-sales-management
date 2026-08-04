@@ -1,12 +1,12 @@
 import { Stack, Typography } from "@mui/material";
+import type { ReactNode } from "react";
 
 type HeaderProps = {
   title: string;
-  description?: string;
-  actions?: React.ReactNode;
+  actions?: ReactNode;
 };
 
-const Header = ({ title, actions, description }: HeaderProps) => {
+const Header = ({ title, actions }: HeaderProps) => {
   return (
     <Stack
       direction="row"
@@ -19,16 +19,10 @@ const Header = ({ title, actions, description }: HeaderProps) => {
         borderBottom: "1px solid #E2E8F0",
       }}
     >
-      <Stack>
-        <Typography variant="h6" sx={{ fontWeight: 700, fontSize: 22 }}>
-          {title}
-        </Typography>
-        {description && (
-          <Typography variant="body2" sx={{ color: "#64748B", fontSize: 12 }}>
-            {description}
-          </Typography>
-        )}
-      </Stack>
+      <Typography variant="h6" sx={{ fontWeight: 700, fontSize: 22 }}>
+        {title}
+      </Typography>
+
       {actions && (
         <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
           {actions}

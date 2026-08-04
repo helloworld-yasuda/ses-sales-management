@@ -37,23 +37,4 @@ export const Detail = () => (
   />
 );
 
-export const Description = () => (
-  <Header
-    title="要員管理"
-    description="社内・パートナーエンジニアのスキルと所属ステータス管理"
-  />
-);
-
 export const TitleOnly = () => <Header title="取引先管理 / 取引先登録" />;
-
-export const WithDescriptionAndActions = () => (
-  <Header
-    title="要員管理"
-    description="社内・パートナーエンジニアのスキルと所属ステータス管理"
-    actions={
-      <Button variant="contained" color="primary">
-        新規追加
-      </Button>
-    }
-  />
-);
