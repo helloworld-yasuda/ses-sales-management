@@ -1,54 +1,24 @@
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import {
+  useLoginForm,
+  type LoginFormValues,
+} from "@/hooks/useLoginForm";
 
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-const loginFormSchema = z.object({
-  email: z
-    .string()
-    .min(1, "メールアドレスは必須です")
-    .regex(emailRegex, "メールアドレスの形式が正しくありません"),
-  password: z
-    .string()
-    .min(1, "パスワードは必須です")
-    .min(6, "パスワードは6文字以上で入力してください")
-    .max(64, "パスワードは64文字以下で入力してください"),
-});
-
-export type LoginFormValues = z.infer<typeof loginFormSchema>;
+export type { LoginFormValues };
 
 type LoginFormProps = {
   onLogin?: (data: LoginFormValues) => Promise<void> | void;
 };
 
 const LoginForm = ({ onLogin }: LoginFormProps) => {
-  const [submitError, setSubmitError] = useState<string | null>(null);
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<LoginFormValues>({
-    resolver: zodResolver(loginFormSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  });
-
-  // ログインボタンをクリックした時の処理
-  const onSubmit = async (data: LoginFormValues) => {
-    setSubmitError(null);
-    try {
-      await onLogin?.(data);
-    } catch (error) {
-      setSubmitError(
-        error instanceof Error ? error.message : "ログインに失敗しました",
-      );
-    }
-  };
+    errors,
+    isSubmitting,
+    submitError,
+    onSubmit,
+  } = useLoginForm({ onLogin });
 
   return (
     <Box
