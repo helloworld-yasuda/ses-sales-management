@@ -1,87 +1,42 @@
 "use client";
 
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Stack, Typography } from "@mui/material";
+import LoginForm from "@/components/login/LoginForm";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
+  const router = useRouter();
+
+  const handleLogin = async () => {
+    // TODO: ログイン API 呼び出し
+    router.push("/management");
+  };
+
   return (
-    <Box
-      sx={{
-        minHeight: "100vh",
-        display: "flex",
-      }}
-    >
-      <Card
-        elevation={0}
+    <Stack direction="row" sx={{ width: "100%", height: "100vh" }}>
+      <Stack
+        spacing={3}
         sx={{
-          width: "100%",
-          maxWidth: 600,
-          height: 400,
-          margin: "10% auto",
-          border: "1px solid",
-          borderColor: "divider",
-          borderRadius: 2,
+          backgroundImage: "url('/login-backgroundimage.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          width: "50%",
+          height: "100vh",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
-        <CardContent sx={{ px: 10, py: 5 }}>
-          <Stack
-            component="form"
-            spacing={4}
-            noValidate
-            onSubmit={(e) => e.preventDefault()}
-          >
-            <Typography
-              component="h1"
-              variant="h4"
-              sx={{ textAlign: "center", fontWeight: 600 }}
-            >
-              Login
-            </Typography>
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-              <Typography variant="body1" sx={{ textAlign: "center" }}>
-                ユーザーID
-              </Typography>
-              <TextField
-                placeholder="ユーザーIDを入力"
-                name="userId"
-                autoComplete="username"
-                fullWidth
-              />
-            </Box>
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-              <Typography variant="body1" sx={{ textAlign: "center" }}>
-                パスワード
-              </Typography>
-              <TextField
-                type="password"
-                placeholder="パスワードを入力"
-                name="password"
-                autoComplete="current-password"
-                fullWidth
-              />
-            </Box>
-
-            <Box sx={{ display: "flex", justifyContent: "center" }}>
-              <Button
-                type="submit"
-                variant="contained"
-                size="medium"
-                sx={{ width: 150 }}
-              >
-                ログイン
-              </Button>
-            </Box>
-          </Stack>
-        </CardContent>
-      </Card>
-    </Box>
+        <Image src="/large-logo.png" alt="login-image" width={64} height={64} />
+        <Typography variant="h4" sx={{ color: "#FFFFFF" }}>
+          SES営業管理システム
+        </Typography>
+        <Typography variant="body1" sx={{ color: "#93C5FD" }}>
+          エンジニア要員とプロジェクト案件の自動マッチングと顧客管理
+        </Typography>
+      </Stack>
+      <LoginForm onLogin={handleLogin} />
+    </Stack>
   );
 };
 
