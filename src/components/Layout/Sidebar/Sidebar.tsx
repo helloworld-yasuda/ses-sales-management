@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Avatar,
   Box,
@@ -17,9 +19,9 @@ import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import Image from "next/image";
 
-type NavKey = "partners" | "engineers" | "mail" | "settings";
+export type NavKey = "partners" | "engineers" | "mail" | "settings";
 
-type SidebarProps = {
+export type SidebarProps = {
   title: string;
   description: string;
   userName: string;
@@ -92,6 +94,7 @@ const Sidebar = ({
       variant="permanent"
       sx={{
         width: 260,
+        flexShrink: 0,
         "& .MuiDrawer-paper": {
           width: 260,
           height: "100vh",
@@ -112,7 +115,7 @@ const Sidebar = ({
               gap: 1.5,
             }}
           >
-            <Image src="logo-icon.png" alt="logo" width={36} height={36} />
+            <Image src="/logo-icon.png" alt="logo" width={36} height={36} />
             <Stack>
               <Typography variant="h6" sx={{ fontWeight: 700, fontSize: 16 }}>
                 {title}

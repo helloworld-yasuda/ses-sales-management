@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import Sidebar from "./Sidebar";
+import { mockSidebarProps } from "./Sidebar.mock";
 
 const meta: Meta<typeof Sidebar> = {
   title: "Layout/Sidebar",
@@ -16,11 +17,8 @@ type Story = StoryObj<typeof Sidebar>;
 
 export const Default: Story = {
   args: {
-    title: "SES Manager",
-    description: "Sales Core",
+    ...mockSidebarProps,
     selected: "partners",
-    userName: "佐藤健太",
-    role: "営業部長",
     onSelect: () => {},
     onLogout: () => {},
   },
