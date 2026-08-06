@@ -18,6 +18,7 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export type NavKey = "partners" | "engineers" | "mail" | "settings";
 
@@ -89,6 +90,21 @@ const Sidebar = ({
   onSelect,
   onLogout,
 }: SidebarProps) => {
+  const NAV_PATHS: Record<NavKey, string | null> = {
+    partners: "/management",
+    engineers: "/member",
+    mail: null, // 未実装
+    settings: null, // 未実装
+  };
+  const router = useRouter();
+  const handleSelect = (key: NavKey) => {
+    const path = NAV_PATHS[key];
+    if (path) {
+      router.push(path);
+    }
+    onSelect?.(key);
+  };
+
   return (
     <Drawer
       variant="permanent"
@@ -134,7 +150,8 @@ const Sidebar = ({
               <ListItemButton
                 key={item.key}
                 selected={selected === item.key}
-                onClick={() => onSelect?.(item.key)}
+                onClick={() => handleSelect(item.key)}
+                disabled={!NAV_PATHS[item.key]}
                 sx={navItemSx}
               >
                 <ListItemIcon>{item.icon}</ListItemIcon>
