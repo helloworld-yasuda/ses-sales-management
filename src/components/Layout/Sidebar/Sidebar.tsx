@@ -93,8 +93,8 @@ const Sidebar = ({
   const NAV_PATHS: Record<NavKey, string | null> = {
     partners: "/management",
     engineers: "/member",
-    mail: null, // 未実装
-    settings: null, // 未実装
+    mail: null, // TODO: メール配信機能を実装したら設定する
+    settings: null, // TODO: 設定機能を実装したら設定する
   };
   const router = useRouter();
   const handleSelect = (key: NavKey) => {
