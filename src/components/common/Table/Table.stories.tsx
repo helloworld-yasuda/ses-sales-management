@@ -1,12 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import {
+  mockCompanyColumns,
+  mockCompanyRows,
+  type CompanyRow,
+} from "@/components/management/CompanyTable.mock";
+import {
   mockPersonnelColumns,
   mockPersonnelRows,
-  mockTableColumns,
-  mockTableRows,
-  type CompanyRow,
   type PersonnelRow,
-} from "./Table.mock";
+} from "@/components/member/MemberTable.mock";
 import TableComponent from "./Table";
 
 const meta: Meta<typeof TableComponent> = {
@@ -19,8 +21,8 @@ export default meta;
 
 export const Default: StoryObj<typeof TableComponent<CompanyRow>> = {
   args: {
-    columns: mockTableColumns,
-    rows: mockTableRows,
+    columns: mockCompanyColumns,
+    rows: mockCompanyRows,
   },
 };
 
