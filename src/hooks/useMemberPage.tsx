@@ -9,7 +9,7 @@ import type { TableColumn } from "@/components/common/Table/Table";
 import {
   mockPersonnelRows,
   type PersonnelRow,
-} from "@/components/common/Table/Table.mock";
+} from "@/components/member/MemberTable.mock";
 import { mockSidebarProps } from "@/components/Layout/Sidebar/Sidebar.mock";
 import type { NavKey } from "@/components/Layout/Sidebar/Sidebar";
 

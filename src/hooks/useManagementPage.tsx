@@ -6,9 +6,9 @@ import { Stack } from "@mui/material";
 import RankLabelComponent from "@/components/common/RankLabel/RankLabel";
 import type { TableColumn } from "@/components/common/Table/Table";
 import {
-  mockTableRows,
+  mockCompanyRows,
   type CompanyRow,
-} from "@/components/common/Table/Table.mock";
+} from "@/components/management/CompanyTable.mock";
 import { mockSidebarProps } from "@/components/Layout/Sidebar/Sidebar.mock";
 import type { NavKey } from "@/components/Layout/Sidebar/Sidebar";
 import LinkComponent from "@/components/common/Link/Link";
@@ -61,7 +61,7 @@ export const useManagementPage = () => {
     selected,
   };
   const columns = managementTableColumns;
-  const allRows = mockTableRows;
+  const allRows = mockCompanyRows;
 
   const totalPages = Math.max(1, Math.ceil(allRows.length / PAGE_SIZE));
   const startIndex = (currentPage - 1) * PAGE_SIZE;
