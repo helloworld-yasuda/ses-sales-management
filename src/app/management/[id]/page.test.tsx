@@ -1,10 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import {
-  PageHeaderProvider,
-  usePageHeaderContext,
-} from "@/components/Layout/PageHeaderContext";
 import { mockCompanyDetails } from "@/components/management/CompanyDetail.mock";
 import ManagementDetailPage from "./page";
 
@@ -16,20 +12,24 @@ vi.mock("next/navigation", () => ({
     push: pushMock,
   }),
   useParams: () => useParamsMock(),
+  usePathname: () => "/management/1",
 }));
 
-const HeaderActions = () => {
-  const { header } = usePageHeaderContext();
-  return <div>{header.actions}</div>;
-};
+vi.mock("next/image", () => ({
+  default: ({
+    alt,
+    src,
+    width,
+    height,
+  }: {
+    alt: string;
+    src: string;
+    width: number;
+    height: number;
+  }) => <img alt={alt} src={src} width={width} height={height} />,
+}));
 
-const renderPage = () =>
-  render(
-    <PageHeaderProvider>
-      <HeaderActions />
-      <ManagementDetailPage />
-    </PageHeaderProvider>,
-  );
+const renderPage = () => render(<ManagementDetailPage />);
 
 describe("ManagementDetailPage", () => {
   beforeEach(() => {

@@ -4,13 +4,14 @@ import { useRouter } from "next/navigation";
 const toAvailabilityLabel = (value: boolean) => (value ? "あり" : "なし");
 
 const useManagementDetail = (id: string) => {
+  const router = useRouter();
+
   // TODO: API 接続時に id で取得する
   const company = mockCompanyDetails.find((item) => item.id === id) ?? null;
   if (!company) {
     throw new Error("Company not found");
   }
 
-  const router = useRouter();
   const handleEdit = () => {
     router.push(`/management/${id}/edit`);
   };
