@@ -11,10 +11,7 @@ const MemberPage = () => {
     <AppLayout
       title="要員管理"
       actions={
-        <ButtonComponent
-          withIcon
-          onClick={() => router.push("/member/create")}
-        >
+        <ButtonComponent withIcon onClick={() => router.push("/member/create")}>
           要員の新規追加
         </ButtonComponent>
       }

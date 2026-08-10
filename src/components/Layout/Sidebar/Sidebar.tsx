@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Avatar,
   Box,
@@ -16,46 +18,46 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import Image from "next/image";
+import { useSidebarNav } from "@/hooks/useSidebarNav";
 
-export type NavKey = "partners" | "engineers" | "mail" | "settings";
+export type NavPath = "/management" | "/member" | "/mail" | "/settings";
 
 export type SidebarProps = {
   title: string;
   description: string;
   userName: string;
   role: string;
-  selected: NavKey;
   avatarUrl?: string;
-  onSelect?: (key: NavKey) => void;
+  onSelect?: (path: NavPath) => void;
   onLogout?: () => void;
 };
 
 type NavItem = {
   icon: React.ReactNode;
   label: string;
-  key: NavKey;
+  path: NavPath;
 };
 
 const navItems: NavItem[] = [
   {
     icon: <ApartmentOutlinedIcon />,
     label: "取引先管理",
-    key: "partners",
+    path: "/management",
   },
   {
     icon: <PeopleOutlinedIcon />,
     label: "要員管理",
-    key: "engineers",
+    path: "/member",
   },
   {
     icon: <EmailOutlinedIcon />,
     label: "メール配信",
-    key: "mail",
+    path: "/mail",
   },
   {
     icon: <SettingsOutlinedIcon />,
     label: "設定",
-    key: "settings",
+    path: "/settings",
   },
 ];
 
@@ -80,13 +82,13 @@ const navItemSx = {
 const Sidebar = ({
   title,
   description,
-  selected,
   userName,
   role,
   avatarUrl,
   onSelect,
   onLogout,
 }: SidebarProps) => {
+  const { isSelected } = useSidebarNav();
   return (
     <Drawer
       variant="permanent"
@@ -129,9 +131,9 @@ const Sidebar = ({
           <List>
             {navItems.map((item) => (
               <ListItemButton
-                key={item.key}
-                selected={selected === item.key}
-                onClick={() => onSelect?.(item.key)}
+                key={item.path}
+                selected={isSelected(item.path)}
+                onClick={() => onSelect?.(item.path)}
                 sx={navItemSx}
               >
                 <ListItemIcon>{item.icon}</ListItemIcon>
