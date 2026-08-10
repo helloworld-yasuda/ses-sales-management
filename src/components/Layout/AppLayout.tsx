@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { useEffect, type ReactNode } from "react";
 import Header from "@/components/Layout/Header/Header";
 import Sidebar, { type NavPath } from "@/components/Layout/Sidebar/Sidebar";
-import { APP_INFO } from "@/constants/app";
 import { useAuth } from "@/contexts/AuthContext";
 
 type AppLayoutProps = {
@@ -40,11 +39,9 @@ const AppLayout = ({ title, actions, children }: AppLayoutProps) => {
   return (
     <Box sx={{ display: "flex" }}>
       <Sidebar
-        {...APP_INFO}
         userName={user.userName}
         role={user.role}
         avatarUrl={user.avatarUrl}
-        onSelect={handleSelect}
         onLogout={handleLogout}
       />
       <Box sx={{ flexGrow: 1, minWidth: 0 }}>

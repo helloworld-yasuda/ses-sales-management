@@ -18,17 +18,14 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import Image from "next/image";
-import { useSidebarNav } from "@/hooks/useSidebarNav";
+import { usePathname, useRouter } from "next/navigation";
 
 export type NavPath = "/management" | "/member" | "/mail" | "/settings";
 
 export type SidebarProps = {
-  title: string;
-  description: string;
   userName: string;
   role: string;
   avatarUrl?: string;
-  onSelect?: (path: NavPath) => void;
   onLogout?: () => void;
 };
 
@@ -79,16 +76,9 @@ const navItemSx = {
   },
 };
 
-const Sidebar = ({
-  title,
-  description,
-  userName,
-  role,
-  avatarUrl,
-  onSelect,
-  onLogout,
-}: SidebarProps) => {
-  const { isSelected } = useSidebarNav();
+const Sidebar = ({ userName, role, avatarUrl, onLogout }: SidebarProps) => {
+  const router = useRouter();
+  const pathname = usePathname();
   return (
     <Drawer
       variant="permanent"
@@ -117,13 +107,13 @@ const Sidebar = ({
             <Image src="/logo-icon.png" alt="logo" width={36} height={36} />
             <Stack>
               <Typography variant="h6" sx={{ fontWeight: 700, fontSize: 16 }}>
-                {title}
+                SES Manager
               </Typography>
               <Typography
                 variant="body2"
                 sx={{ fontSize: 11, color: "#64748B" }}
               >
-                {description}
+                Sales Core
               </Typography>
             </Stack>
           </Box>
@@ -132,8 +122,10 @@ const Sidebar = ({
             {navItems.map((item) => (
               <ListItemButton
                 key={item.path}
-                selected={isSelected(item.path)}
-                onClick={() => onSelect?.(item.path)}
+                selected={
+                  pathname === item.path || pathname.startsWith(`${item.path}/`)
+                }
+                onClick={() => router.push(item.path)}
                 sx={navItemSx}
               >
                 <ListItemIcon>{item.icon}</ListItemIcon>
