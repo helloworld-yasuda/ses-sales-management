@@ -1,8 +1,6 @@
 import { mockCompanyDetails } from "@/components/management/CompanyDetail.mock";
 import { useRouter } from "next/navigation";
 
-const toAvailabilityLabel = (value: boolean) => (value ? "あり" : "なし");
-
 const useManagementDetail = (id: string) => {
   const router = useRouter();
 
@@ -16,7 +14,12 @@ const useManagementDetail = (id: string) => {
     router.push(`/management/${id}/edit`);
   };
 
-  const fields = [
+  type Field = {
+    label: string;
+    value: boolean | string;
+  };
+
+  const fields: Field[] = [
     { label: "会社名", value: company.name },
     { label: "企業担当者", value: company.representative },
     { label: "営業共通メールアドレス", value: company.email },
@@ -26,15 +29,15 @@ const useManagementDetail = (id: string) => {
     { label: "主要領域", value: company.mainArea },
     {
       label: "面談実績",
-      value: toAvailabilityLabel(company.interviewAchievement),
+      value: company.interviewAchievement ? "あり" : "なし",
     },
     {
       label: "配信の有無",
-      value: toAvailabilityLabel(company.deliveryAvailability),
+      value: company.deliveryAvailability ? "あり" : "なし",
     },
     {
       label: "Lineの有無",
-      value: toAvailabilityLabel(company.lineAvailability),
+      value: company.lineAvailability ? "あり" : "なし",
     },
   ];
 
