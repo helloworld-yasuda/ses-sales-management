@@ -1,6 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { AuthProvider } from "@/contexts/AuthContext";
 import LoginPage from "./page";
 
 const pushMock = vi.fn();
@@ -25,6 +26,13 @@ vi.mock("next/image", () => ({
   }) => <img alt={alt} src={src} width={width} height={height} />,
 }));
 
+const renderLoginPage = () =>
+  render(
+    <AuthProvider>
+      <LoginPage />
+    </AuthProvider>,
+  );
+
 describe("LoginPage", () => {
   beforeEach(() => {
     pushMock.mockClear();
@@ -32,7 +40,7 @@ describe("LoginPage", () => {
 
   it("ログイン成功時に /management へ遷移する", async () => {
     const user = userEvent.setup();
-    render(<LoginPage />);
+    renderLoginPage();
 
     await user.type(
       screen.getByPlaceholderText("メールアドレスを入力してください"),
@@ -51,7 +59,7 @@ describe("LoginPage", () => {
 
   it("バリデーションエラー時は遷移しない", async () => {
     const user = userEvent.setup();
-    render(<LoginPage />);
+    renderLoginPage();
 
     await user.click(screen.getByRole("button", { name: "ログイン" }));
 

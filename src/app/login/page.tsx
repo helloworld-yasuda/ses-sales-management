@@ -1,15 +1,19 @@
 "use client";
 
 import { Stack, Typography } from "@mui/material";
-import LoginForm from "@/components/login/LoginForm";
+import LoginForm, { type LoginFormValues } from "@/components/login/LoginForm";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/contexts/AuthContext";
+import { mockAuthUser } from "@/contexts/AuthContext.mock";
 
 const Login = () => {
   const router = useRouter();
+  const { login } = useAuth();
 
-  const handleLogin = async () => {
-    // TODO: ログイン API 呼び出し
+  const handleLogin = (data: LoginFormValues) => {
+    // TODO: 本番はAPIにdataを送って、返ってきたユーザーでloginする。ここではモックユーザーをloginする。
+    login(mockAuthUser);
     router.push("/management");
   };
 

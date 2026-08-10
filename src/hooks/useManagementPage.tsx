@@ -9,8 +9,6 @@ import {
   mockTableRows,
   type CompanyRow,
 } from "@/components/common/Table/Table.mock";
-import { mockSidebarProps } from "@/components/Layout/Sidebar/Sidebar.mock";
-import type { NavKey } from "@/components/Layout/Sidebar/Sidebar";
 import LinkComponent from "@/components/common/Link/Link";
 
 const PAGE_SIZE = 10;
@@ -55,11 +53,6 @@ export const useManagementPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   // TODO: API 接続後は取得データに差し替え
-  const selected: NavKey = "partners";
-  const sidebar = {
-    ...mockSidebarProps,
-    selected,
-  };
   const columns = managementTableColumns;
   const allRows = mockTableRows;
 
@@ -76,7 +69,6 @@ export const useManagementPage = () => {
   };
 
   return {
-    sidebar,
     columns,
     rows,
     handleAdd,
