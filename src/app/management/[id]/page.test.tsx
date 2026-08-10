@@ -2,6 +2,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { mockCompanyDetails } from "@/components/management/CompanyDetail.mock";
+import { mockAuthUser } from "@/contexts/AuthContext.mock";
 import ManagementDetailPage from "./page";
 
 const pushMock = vi.fn();
@@ -10,6 +11,7 @@ const useParamsMock = vi.fn();
 vi.mock("next/navigation", () => ({
   useRouter: () => ({
     push: pushMock,
+    replace: vi.fn(),
   }),
   useParams: () => useParamsMock(),
   usePathname: () => "/management/1",
@@ -27,6 +29,14 @@ vi.mock("next/image", () => ({
     width: number;
     height: number;
   }) => <img alt={alt} src={src} width={width} height={height} />,
+}));
+
+vi.mock("@/contexts/AuthContext", () => ({
+  useAuth: () => ({
+    user: mockAuthUser,
+    login: vi.fn(),
+    logout: vi.fn(),
+  }),
 }));
 
 const renderPage = () => render(<ManagementDetailPage />);

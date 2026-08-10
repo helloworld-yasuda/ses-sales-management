@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Paper,
   Table,
@@ -22,11 +24,13 @@ export type TableColumn<T extends TableRowData> = {
 type TableComponentProps<T extends TableRowData> = {
   columns: TableColumn<T>[];
   rows: T[];
+  onRowClick?: (row: T) => void;
 };
 
 export const TableComponent = <T extends TableRowData>({
   columns,
   rows,
+  onRowClick,
 }: TableComponentProps<T>) => {
   return (
     <TableContainer component={Paper} elevation={0} sx={{ borderRadius: 2 }}>
@@ -50,7 +54,12 @@ export const TableComponent = <T extends TableRowData>({
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <TableRow key={row.id} hover>
+            <TableRow
+              key={row.id}
+              hover
+              onClick={onRowClick ? () => onRowClick(row) : undefined}
+              sx={onRowClick ? { cursor: "pointer" } : undefined}
+            >
               {columns.map((column) => (
                 <TableCell
                   key={String(column.key)}
@@ -58,9 +67,7 @@ export const TableComponent = <T extends TableRowData>({
                     borderBottom: "1px solid #E2E8F0",
                   }}
                 >
-                  {column.render
-                    ? column.render(row)
-                    : String(row[column.key])}
+                  {column.render ? column.render(row) : String(row[column.key])}
                 </TableCell>
               ))}
             </TableRow>

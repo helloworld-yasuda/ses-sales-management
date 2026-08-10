@@ -1,11 +1,11 @@
 "use client";
 
 import { Box } from "@mui/material";
-import { usePathname, useRouter } from "next/navigation";
-import type { ReactNode } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, type ReactNode } from "react";
 import Header from "@/components/Layout/Header/Header";
-import Sidebar, { type NavKey } from "@/components/Layout/Sidebar/Sidebar";
-import { mockSidebarProps } from "@/components/Layout/Sidebar/Sidebar.mock";
+import Sidebar from "@/components/Layout/Sidebar/Sidebar";
+import { useAuth } from "@/contexts/AuthContext";
 
 type AppLayoutProps = {
   title: string;
@@ -13,42 +13,31 @@ type AppLayoutProps = {
   children?: ReactNode;
 };
 
-const NAV_PATHS: Record<NavKey, string | null> = {
-  partners: "/management",
-  engineers: "/member",
-  mail: null, // TODO: メール管理機能が実装されたら追加
-  settings: null, // TODO: 設定機能が実装されたら追加
-};
-
-const getSelectedNavKey = (pathname: string): NavKey => {
-  if (pathname.startsWith("/member")) return "engineers";
-  if (pathname.startsWith("/management")) return "partners";
-  return "partners";
-};
-
 const AppLayout = ({ title, actions, children }: AppLayoutProps) => {
   const router = useRouter();
-  const pathname = usePathname();
-  const selected = getSelectedNavKey(pathname);
+  const { user, logout } = useAuth();
 
-  const handleSelect = (key: NavKey) => {
-    const path = NAV_PATHS[key];
-    if (path) {
-      router.push(path);
+  useEffect(() => {
+    if (!user) {
+      router.replace("/login");
     }
-  };
+  }, [user, router]);
 
   const handleLogout = () => {
-    // TODO: ログアウト処理
+    logout();
     router.push("/login");
   };
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <Box sx={{ display: "flex" }}>
       <Sidebar
-        {...mockSidebarProps}
-        selected={selected}
-        onSelect={handleSelect}
+        userName={user.userName}
+        role={user.role}
+        avatarUrl={user.avatarUrl}
         onLogout={handleLogout}
       />
       <Box sx={{ flexGrow: 1, minWidth: 0 }}>

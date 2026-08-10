@@ -7,6 +7,11 @@ const meta: Meta<typeof Sidebar> = {
   tags: ["autodocs"],
   parameters: {
     layout: "fullscreen",
+    nextjs: {
+      navigation: {
+        pathname: "/management",
+      },
+    },
   },
 };
 
@@ -16,12 +21,8 @@ type Story = StoryObj<typeof Sidebar>;
 
 export const Default: Story = {
   args: {
-    title: "SES Manager",
-    description: "Sales Core",
-    selected: "partners",
     userName: "佐藤健太",
     role: "営業部長",
-    onSelect: () => {},
     onLogout: () => {},
   },
 };
