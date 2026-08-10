@@ -23,10 +23,6 @@ const AppLayout = ({ title, actions, children }: AppLayoutProps) => {
     }
   }, [user, router]);
 
-  const handleSelect = (path: NavPath) => {
-    router.push(path);
-  };
-
   const handleLogout = () => {
     logout();
     router.push("/login");
