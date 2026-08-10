@@ -9,10 +9,9 @@ import {
   mockCompanyRows,
   type CompanyRow,
 } from "@/components/management/CompanyTable.mock";
-import { mockSidebarProps } from "@/components/Layout/Sidebar/Sidebar.mock";
-import type { NavKey } from "@/components/Layout/Sidebar/Sidebar";
 import LinkComponent from "@/components/common/Link/Link";
 
+// TODO: API 接続後は削除
 const PAGE_SIZE = 10;
 
 // 取引先一覧テーブルのカラム定義
@@ -55,11 +54,6 @@ export const useManagementPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   // TODO: API 接続後は取得データに差し替え
-  const selected: NavKey = "partners";
-  const sidebar = {
-    ...mockSidebarProps,
-    selected,
-  };
   const columns = managementTableColumns;
   const allRows = mockCompanyRows;
 
@@ -76,7 +70,6 @@ export const useManagementPage = () => {
   };
 
   return {
-    sidebar,
     columns,
     rows,
     handleAdd,

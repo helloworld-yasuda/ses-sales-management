@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import Sidebar from "./Sidebar";
-import { mockSidebarProps } from "./Sidebar.mock";
 
 const meta: Meta<typeof Sidebar> = {
   title: "Layout/Sidebar",
@@ -8,6 +7,11 @@ const meta: Meta<typeof Sidebar> = {
   tags: ["autodocs"],
   parameters: {
     layout: "fullscreen",
+    nextjs: {
+      navigation: {
+        pathname: "/management",
+      },
+    },
   },
 };
 
@@ -17,9 +21,8 @@ type Story = StoryObj<typeof Sidebar>;
 
 export const Default: Story = {
   args: {
-    ...mockSidebarProps,
-    selected: "partners",
-    onSelect: () => {},
+    userName: "佐藤健太",
+    role: "営業部長",
     onLogout: () => {},
   },
 };

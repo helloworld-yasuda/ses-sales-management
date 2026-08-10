@@ -10,8 +10,6 @@ import {
   mockPersonnelRows,
   type PersonnelRow,
 } from "@/components/member/MemberTable.mock";
-import { mockSidebarProps } from "@/components/Layout/Sidebar/Sidebar.mock";
-import type { NavKey } from "@/components/Layout/Sidebar/Sidebar";
 
 // TODO: API 接続後は取得データに差し替え
 const PAGE_SIZE = 10;
@@ -102,11 +100,6 @@ export const useMemberPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   // TODO: API 接続後は取得データに差し替え
-  const selected: NavKey = "engineers";
-  const sidebar = {
-    ...mockSidebarProps,
-    selected,
-  };
   const columns = memberTableColumns;
   const allRows = mockPersonnelRows;
 
@@ -123,7 +116,6 @@ export const useMemberPage = () => {
   };
 
   return {
-    sidebar,
     columns,
     rows,
     handleAdd,

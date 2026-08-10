@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { mockAuthUser } from "@/contexts/AuthContext.mock";
 import MemberPage from "./page";
 
 const pushMock = vi.fn();
@@ -8,7 +9,9 @@ const pushMock = vi.fn();
 vi.mock("next/navigation", () => ({
   useRouter: () => ({
     push: pushMock,
+    replace: vi.fn(),
   }),
+  usePathname: () => "/member",
 }));
 
 vi.mock("next/image", () => ({
@@ -23,6 +26,14 @@ vi.mock("next/image", () => ({
     width: number;
     height: number;
   }) => <img alt={alt} src={src} width={width} height={height} />,
+}));
+
+vi.mock("@/contexts/AuthContext", () => ({
+  useAuth: () => ({
+    user: mockAuthUser,
+    login: vi.fn(),
+    logout: vi.fn(),
+  }),
 }));
 
 describe("MemberPage", () => {

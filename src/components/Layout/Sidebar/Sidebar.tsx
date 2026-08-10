@@ -18,47 +18,43 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
-export type NavKey = "partners" | "engineers" | "mail" | "settings";
+export type NavPath = "/management" | "/member" | "/mail" | "/settings";
 
 export type SidebarProps = {
-  title: string;
-  description: string;
   userName: string;
   role: string;
-  selected: NavKey;
   avatarUrl?: string;
-  onSelect?: (key: NavKey) => void;
   onLogout?: () => void;
 };
 
 type NavItem = {
   icon: React.ReactNode;
   label: string;
-  key: NavKey;
+  path: NavPath;
 };
 
 const navItems: NavItem[] = [
   {
     icon: <ApartmentOutlinedIcon />,
     label: "取引先管理",
-    key: "partners",
+    path: "/management",
   },
   {
     icon: <PeopleOutlinedIcon />,
     label: "要員管理",
-    key: "engineers",
+    path: "/member",
   },
   {
     icon: <EmailOutlinedIcon />,
     label: "メール配信",
-    key: "mail",
+    path: "/mail",
   },
   {
     icon: <SettingsOutlinedIcon />,
     label: "設定",
-    key: "settings",
+    path: "/settings",
   },
 ];
 
@@ -80,31 +76,9 @@ const navItemSx = {
   },
 };
 
-const Sidebar = ({
-  title,
-  description,
-  selected,
-  userName,
-  role,
-  avatarUrl,
-  onSelect,
-  onLogout,
-}: SidebarProps) => {
-  const NAV_PATHS: Record<NavKey, string | null> = {
-    partners: "/management",
-    engineers: "/member",
-    mail: null, // TODO: メール配信機能を実装したら設定する
-    settings: null, // TODO: 設定機能を実装したら設定する
-  };
+const Sidebar = ({ userName, role, avatarUrl, onLogout }: SidebarProps) => {
   const router = useRouter();
-  const handleSelect = (key: NavKey) => {
-    const path = NAV_PATHS[key];
-    if (path) {
-      router.push(path);
-    }
-    onSelect?.(key);
-  };
-
+  const pathname = usePathname();
   return (
     <Drawer
       variant="permanent"
@@ -134,13 +108,13 @@ const Sidebar = ({
             <Image src="/logo-icon.png" alt="logo" width={36} height={36} />
             <Stack>
               <Typography variant="h6" sx={{ fontWeight: 700, fontSize: 16 }}>
-                {title}
+                SES Manager
               </Typography>
               <Typography
                 variant="body2"
                 sx={{ fontSize: 11, color: "#64748B" }}
               >
-                {description}
+                Sales Core
               </Typography>
             </Stack>
           </Box>
@@ -148,10 +122,11 @@ const Sidebar = ({
           <List>
             {navItems.map((item) => (
               <ListItemButton
-                key={item.key}
-                selected={selected === item.key}
-                onClick={() => handleSelect(item.key)}
-                disabled={!NAV_PATHS[item.key]}
+                key={item.path}
+                selected={
+                  pathname === item.path || pathname.startsWith(`${item.path}/`)
+                }
+                onClick={() => router.push(item.path)}
                 sx={navItemSx}
               >
                 <ListItemIcon>{item.icon}</ListItemIcon>
