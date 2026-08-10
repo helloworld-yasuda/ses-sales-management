@@ -84,6 +84,7 @@ const Sidebar = ({ userName, role, avatarUrl, onLogout }: SidebarProps) => {
       variant="permanent"
       sx={{
         width: 260,
+        flexShrink: 0,
         "& .MuiDrawer-paper": {
           width: 260,
           height: "100vh",

@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useEffect, type ReactNode } from "react";
 import Header from "@/components/Layout/Header/Header";
-import Sidebar, { type NavPath } from "@/components/Layout/Sidebar/Sidebar";
+import Sidebar from "@/components/Layout/Sidebar/Sidebar";
 import { useAuth } from "@/contexts/AuthContext";
 
 type AppLayoutProps = {
