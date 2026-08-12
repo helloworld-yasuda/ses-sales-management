@@ -6,11 +6,12 @@ import { Stack } from "@mui/material";
 import RankLabelComponent from "@/components/common/RankLabel/RankLabel";
 import type { TableColumn } from "@/components/common/Table/Table";
 import {
-  mockTableRows,
+  mockCompanyRows,
   type CompanyRow,
-} from "@/components/common/Table/Table.mock";
+} from "@/components/management/CompanyTable.mock";
 import LinkComponent from "@/components/common/Link/Link";
 
+// TODO: API 接続後は削除
 const PAGE_SIZE = 10;
 
 // 取引先一覧テーブルのカラム定義
@@ -54,7 +55,7 @@ export const useManagementPage = () => {
 
   // TODO: API 接続後は取得データに差し替え
   const columns = managementTableColumns;
-  const allRows = mockTableRows;
+  const allRows = mockCompanyRows;
 
   const totalPages = Math.max(1, Math.ceil(allRows.length / PAGE_SIZE));
   const startIndex = (currentPage - 1) * PAGE_SIZE;

@@ -15,7 +15,11 @@ const ManagementPage = () => {
     <AppLayout
       title="取引先管理"
       actions={
-        <ButtonComponent withIcon onClick={handleAdd}>
+        <ButtonComponent
+          withIcon
+          onClick={handleAdd}
+          sx={{ backgroundColor: "#2563EB", color: "#FFFFFF" }}
+        >
           新規登録
         </ButtonComponent>
       }
