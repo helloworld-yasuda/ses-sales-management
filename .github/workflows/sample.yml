@@ -17,7 +17,7 @@ jobs:
 
       - uses: "actions/setup-node@v4" #Node.jsをインストールするもの
         with:
-          node-version: "20" #Node.jsのバージョンを指定
+          node-version: "24" #Node.jsのバージョンを指定
           cache: "npm" #依存関係をキャッシュする記述
 
       - name: Install dependencies
