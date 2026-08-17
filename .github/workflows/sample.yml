@@ -1,0 +1,27 @@
+name: Sample
+
+on: [push]
+
+jobs:
+  test_project: #ジョブID
+    runs-on:
+      ubuntu-latest #ubuntuの最新版を用いる設定
+
+
+      #steps：WFにおける処理の最小単位
+    steps:
+      #uses：モジュールを呼び出します、with句の併用でパラメータを渡すことが可能
+      - uses: "actions/checkout@v4" #コマンドを実行するうえで必要なもの
+      - uses: "actions/setup-node@v4" #Node.jsをインストールするもの
+        with:
+          node-version: "20" #Node.jsのバージョンを指定
+          cache: "npm" #依存関係をキャッシュする記述
+
+      - name: Install dependencies
+        run: "npm install" #依存関係をインストールする記述
+
+      - name: Run tests
+        run: "npm test" #テストを実行する記述
+
+      - name: echo
+        run: echo "CI動作確認テストです" #echoの動作確認
