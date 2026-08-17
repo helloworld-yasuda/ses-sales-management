@@ -14,8 +14,6 @@ jobs:
     steps:
       #uses：モジュールを呼び出します、with句の併用でパラメータを渡すことが可能
       - uses: "actions/checkout@v4" #コマンドを実行するうえで必要なもの
-      - name: echo
-        run: echo "CI動作確認テストです" #echoの動作確認
 
       - uses: "actions/setup-node@v4" #Node.jsをインストールするもの
         with:
