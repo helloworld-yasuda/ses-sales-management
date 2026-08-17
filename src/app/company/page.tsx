@@ -3,13 +3,13 @@
 import ButtonComponent from "@/components/common/Button/Button";
 import { Box, Stack } from "@mui/material";
 import TableComponent from "@/components/common/Table/Table";
-import { useManagementPage } from "@/hooks/useManagementPage";
+import { useCompanyPage } from "@/hooks/useCompanyPage";
 import { Paging } from "@/components/common/Paging/Paging";
 import AppLayout from "@/components/Layout/AppLayout";
 
-const ManagementPage = () => {
+const CompanyPage = () => {
   const { columns, rows, handleAdd, handleRowClick, paging } =
-    useManagementPage();
+    useCompanyPage();
 
   return (
     <AppLayout
@@ -44,4 +44,4 @@ const ManagementPage = () => {
   );
 };
 
-export default ManagementPage;
+export default CompanyPage;

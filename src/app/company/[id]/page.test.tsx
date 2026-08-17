@@ -1,9 +1,9 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { mockCompanyDetails } from "@/components/management/CompanyDetail.mock";
+import { mockCompanyDetails } from "@/components/company/CompanyDetail.mock";
 import { mockAuthUser } from "@/contexts/AuthContext.mock";
-import ManagementDetailPage from "./page";
+import CompanyDetailPage from "./page";
 
 const pushMock = vi.fn();
 const useParamsMock = vi.fn();
@@ -14,7 +14,7 @@ vi.mock("next/navigation", () => ({
     replace: vi.fn(),
   }),
   useParams: () => useParamsMock(),
-  usePathname: () => "/management/1",
+  usePathname: () => "/company/1",
 }));
 
 vi.mock("next/image", () => ({
@@ -39,9 +39,9 @@ vi.mock("@/contexts/AuthContext", () => ({
   }),
 }));
 
-const renderPage = () => render(<ManagementDetailPage />);
+const renderPage = () => render(<CompanyDetailPage />);
 
-describe("ManagementDetailPage", () => {
+describe("CompanyDetailPage", () => {
   beforeEach(() => {
     pushMock.mockClear();
     useParamsMock.mockReturnValue({ id: "1" });
@@ -78,7 +78,7 @@ describe("ManagementDetailPage", () => {
     await user.click(await screen.findByRole("button", { name: "編集する" }));
 
     await waitFor(() => {
-      expect(pushMock).toHaveBeenCalledWith("/management/1/edit");
+      expect(pushMock).toHaveBeenCalledWith("/company/1/edit");
     });
   });
 

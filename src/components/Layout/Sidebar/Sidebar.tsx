@@ -20,7 +20,7 @@ import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 
-export type NavPath = "/management" | "/member" | "/mail" | "/settings";
+export type NavPath = "/company" | "/member" | "/mail" | "/settings";
 
 export type SidebarProps = {
   userName: string;
@@ -39,7 +39,7 @@ const navItems: NavItem[] = [
   {
     icon: <ApartmentOutlinedIcon />,
     label: "取引先管理",
-    path: "/management",
+    path: "/company",
   },
   {
     icon: <PeopleOutlinedIcon />,

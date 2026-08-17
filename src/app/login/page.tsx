@@ -14,7 +14,7 @@ const Login = () => {
   const handleLogin = (data: LoginFormValues) => {
     // TODO: 本番はAPIにdataを送って、返ってきたユーザーでloginする。ここではモックユーザーをloginする。
     login(mockAuthUser);
-    router.push("/management");
+    router.push("/company");
   };
 
   return (

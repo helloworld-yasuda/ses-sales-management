@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import useManagementDetail from "@/hooks/useManagementDetail";
+import useCompanyDetail from "@/hooks/useCompanyDetail";
 import ButtonComponent from "@/components/common/Button/Button";
 import AppLayout from "@/components/Layout/AppLayout";
 import {
@@ -14,9 +14,9 @@ import {
   Typography,
 } from "@mui/material";
 
-const ManagementDetailPage = () => {
+const CompanyDetailPage = () => {
   const { id } = useParams<{ id: string }>();
-  const { fields, handleEdit } = useManagementDetail(id);
+  const { fields, handleEdit } = useCompanyDetail(id);
 
   return (
     <AppLayout
@@ -101,4 +101,4 @@ const ManagementDetailPage = () => {
   );
 };
 
-export default ManagementDetailPage;
+export default CompanyDetailPage;
