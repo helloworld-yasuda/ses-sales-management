@@ -38,7 +38,7 @@ describe("LoginPage", () => {
     pushMock.mockClear();
   });
 
-  it("ログイン成功時に /management へ遷移する", async () => {
+  it("ログイン成功時に /company へ遷移する", async () => {
     const user = userEvent.setup();
     renderLoginPage();
 
@@ -53,7 +53,7 @@ describe("LoginPage", () => {
     await user.click(screen.getByRole("button", { name: "ログイン" }));
 
     await waitFor(() => {
-      expect(pushMock).toHaveBeenCalledWith("/management");
+      expect(pushMock).toHaveBeenCalledWith("/company");
     });
   });
 

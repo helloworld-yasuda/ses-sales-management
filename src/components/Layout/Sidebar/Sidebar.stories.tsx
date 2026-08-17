@@ -9,7 +9,7 @@ const meta: Meta<typeof Sidebar> = {
     layout: "fullscreen",
     nextjs: {
       navigation: {
-        pathname: "/management",
+        pathname: "/company",
       },
     },
   },

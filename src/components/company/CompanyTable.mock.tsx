@@ -11,7 +11,7 @@ export type CompanyRow = {
   rank: Rank;
 };
 
-/** Storybook 用。画面の columns は useManagementPage 側で定義 */
+/** Storybook 用。画面の columns は useCompanyPage 側で定義 */
 export const mockCompanyColumns: TableColumn<CompanyRow>[] = [
   { label: "会社名", key: "companyName" },
   { label: "営業担当者", key: "contactPerson" },

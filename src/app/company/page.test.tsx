@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { mockAuthUser } from "@/contexts/AuthContext.mock";
-import ManagementPage from "./page";
+import CompanyPage from "./page";
 
 const pushMock = vi.fn();
 
@@ -11,7 +11,7 @@ vi.mock("next/navigation", () => ({
     push: pushMock,
     replace: vi.fn(),
   }),
-  usePathname: () => "/management",
+  usePathname: () => "/company",
 }));
 
 vi.mock("next/image", () => ({
@@ -39,13 +39,13 @@ vi.mock("@/contexts/AuthContext", () => ({
   }),
 }));
 
-describe("ManagementPage", () => {
+describe("CompanyPage", () => {
   beforeEach(() => {
     pushMock.mockClear();
   });
 
   it("取引先管理とページングが表示される", () => {
-    render(<ManagementPage />);
+    render(<CompanyPage />);
 
     expect(
       screen.getByRole("heading", { name: "取引先管理" }),
@@ -53,27 +53,27 @@ describe("ManagementPage", () => {
     expect(screen.getByRole("button", { name: "page 1" })).toBeInTheDocument();
   });
 
-  it("新規登録ボタンで /management/create へ遷移する", async () => {
+  it("新規登録ボタンで /company/create へ遷移する", async () => {
     const user = userEvent.setup();
-    render(<ManagementPage />);
+    render(<CompanyPage />);
 
     await user.click(screen.getByRole("button", { name: "新規登録" }));
 
-    expect(pushMock).toHaveBeenCalledWith("/management/create");
+    expect(pushMock).toHaveBeenCalledWith("/company/create");
   });
 
   it("行クリックで詳細ページへ遷移する", async () => {
     const user = userEvent.setup();
-    render(<ManagementPage />);
+    render(<CompanyPage />);
 
     await user.click(screen.getByText("株式会社テックソリューション"));
 
-    expect(pushMock).toHaveBeenCalledWith("/management/1");
+    expect(pushMock).toHaveBeenCalledWith("/company/1");
   });
 
   it("ページ変更で一覧が切り替わる", async () => {
     const user = userEvent.setup();
-    render(<ManagementPage />);
+    render(<CompanyPage />);
 
     expect(
       screen.getByText("株式会社テックソリューション"),

@@ -87,6 +87,6 @@ describe("MemberPage", () => {
 
     await user.click(screen.getByRole("button", { name: "取引先管理" }));
 
-    expect(pushMock).toHaveBeenCalledWith("/management");
+    expect(pushMock).toHaveBeenCalledWith("/company");
   });
 });

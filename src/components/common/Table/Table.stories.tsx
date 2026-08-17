@@ -3,7 +3,7 @@ import {
   mockCompanyColumns,
   mockCompanyRows,
   type CompanyRow,
-} from "@/components/management/CompanyTable.mock";
+} from "@/components/company/CompanyTable.mock";
 import {
   mockPersonnelColumns,
   mockPersonnelRows,

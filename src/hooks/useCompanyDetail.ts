@@ -1,7 +1,7 @@
-import { mockCompanyDetails } from "@/components/management/CompanyDetail.mock";
+import { mockCompanyDetails } from "@/components/company/CompanyDetail.mock";
 import { useRouter } from "next/navigation";
 
-const useManagementDetail = (id: string) => {
+const useCompanyDetail = (id: string) => {
   const router = useRouter();
 
   // TODO: API 接続時に id で取得する
@@ -11,7 +11,7 @@ const useManagementDetail = (id: string) => {
   }
 
   const handleEdit = () => {
-    router.push(`/management/${id}/edit`);
+    router.push(`/company/${id}/edit`);
   };
 
   type Field = {
@@ -44,4 +44,4 @@ const useManagementDetail = (id: string) => {
   return { company, fields, handleEdit };
 };
 
-export default useManagementDetail;
+export default useCompanyDetail;

@@ -1,7 +1,7 @@
 import { act, renderHook } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { mockCompanyDetails } from "@/components/management/CompanyDetail.mock";
-import useManagementDetail from "./useManagementDetail";
+import { mockCompanyDetails } from "@/components/company/CompanyDetail.mock";
+import useCompanyDetail from "./useCompanyDetail";
 
 const pushMock = vi.fn();
 
@@ -11,13 +11,13 @@ vi.mock("next/navigation", () => ({
   }),
 }));
 
-describe("useManagementDetail", () => {
+describe("useCompanyDetail", () => {
   beforeEach(() => {
     pushMock.mockClear();
   });
 
   it("指定したIDの会社情報とfieldsを返す", () => {
-    const { result } = renderHook(() => useManagementDetail("1"));
+    const { result } = renderHook(() => useCompanyDetail("1"));
     const company = mockCompanyDetails[0];
 
     expect(result.current.company).toEqual(company);
@@ -32,7 +32,7 @@ describe("useManagementDetail", () => {
   });
 
   it("boolean項目をあり/なしに変換する", () => {
-    const { result } = renderHook(() => useManagementDetail("2"));
+    const { result } = renderHook(() => useCompanyDetail("2"));
 
     expect(result.current.fields).toContainEqual({
       label: "面談実績",
@@ -49,17 +49,17 @@ describe("useManagementDetail", () => {
   });
 
   it("handleEditで編集画面へ遷移する", () => {
-    const { result } = renderHook(() => useManagementDetail("3"));
+    const { result } = renderHook(() => useCompanyDetail("3"));
 
     act(() => {
       result.current.handleEdit();
     });
 
-    expect(pushMock).toHaveBeenCalledWith("/management/3/edit");
+    expect(pushMock).toHaveBeenCalledWith("/company/3/edit");
   });
 
   it("存在しないIDの場合はエラーを投げる", () => {
-    expect(() => renderHook(() => useManagementDetail("999"))).toThrow(
+    expect(() => renderHook(() => useCompanyDetail("999"))).toThrow(
       "Company not found",
     );
   });
