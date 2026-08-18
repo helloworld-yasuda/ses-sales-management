@@ -1,7 +1,6 @@
 name: Frontend CI
 
-on:
-  pull_request:
+on: [pull_request, push]
 
 jobs:
   test_project: #ジョブID
@@ -16,7 +15,7 @@ jobs:
           cache: "npm" #依存関係をキャッシュする記述
 
       - name: Install dependencies
-        run: "npm ci" #依存関係をインストールする記述
+        run: "npm install" #依存関係をインストールする記述
 
       - name: Run tests
         run: "npm test" #テストを実行する記述
