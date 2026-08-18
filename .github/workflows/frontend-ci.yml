@@ -6,11 +6,7 @@ on:
 
 jobs:
   test_project: #ジョブID
-    runs-on:
-      ubuntu-latest #ubuntuの最新版を用いる設定
-
-
-      #steps：WFにおける処理の最小単位
+    runs-on: ubuntu-latest #ubuntuの最新版を用いる設定
     steps:
       #uses：モジュールを呼び出します、with句の併用でパラメータを渡すことが可能
       - uses: "actions/checkout@v4" #コマンドを実行するうえで必要なもの
@@ -21,8 +17,7 @@ jobs:
           cache: "npm" #依存関係をキャッシュする記述
 
       - name: Install dependencies
-        run: "npm install" #依存関係をインストールする記述
+        run: "npm ci" #依存関係をインストールする記述
 
       - name: Run tests
         run: "npm test" #テストを実行する記述
-
