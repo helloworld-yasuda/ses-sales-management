@@ -16,6 +16,7 @@ const Header = ({ title, actions }: HeaderProps) => {
         alignItems: "center",
         px: 4,
         py: 2,
+        backgroundColor: "#FFFFFF",
         borderBottom: "1px solid #E2E8F0",
       }}
     >

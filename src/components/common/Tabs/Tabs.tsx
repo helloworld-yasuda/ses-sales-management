@@ -20,10 +20,7 @@ export const TabsComponent = ({ id }: Props) => {
         );
         setValue(newValue);
       }}
-      sx={{
-        border: "1px solid #E2E8F0",
-        pl: 4,
-      }}
+      sx={{ bgcolor: "#FFFFFF", border: "1px solid #E6E6E6", pl: 4 }}
     >
       <Tab
         label="要員詳細"
