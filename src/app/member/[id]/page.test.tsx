@@ -90,7 +90,7 @@ describe("MemberDetailPage", () => {
     await user.click(await screen.findByRole("button", { name: "表示する" }));
 
     await waitFor(() => {
-      expect(pushMock).toHaveBeenCalledWith("/member/1/skill-sheet");
+      expect(pushMock).toHaveBeenCalledWith("/images/member/1_skill_sheet.pdf");
     });
   });
 

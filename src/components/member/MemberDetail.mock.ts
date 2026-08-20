@@ -15,6 +15,7 @@ export type MemberDetail = {
     fileName: string;
     updatedAt: string;
   };
+  skillSheetUrl: string;
   availability: string;
   remarks: string;
 };
@@ -37,6 +38,7 @@ export const mockMemberDetails: MemberDetail[] = [
       fileName: "佐藤健太_スキルシート_202602.pdf",
       updatedAt: "2026/02/01",
     },
+    skillSheetUrl: "/images/member/1_skill_sheet.pdf",
     availability: "即可能",
     remarks:
       "フロントエンド開発を軸としつつ、Terraformを利用したインフラ構成管理やAWS構築の実務経験もあり。リーダーシップ経験もあり、将来のPM候補として期待できる人材。",
@@ -58,6 +60,7 @@ export const mockMemberDetails: MemberDetail[] = [
       fileName: "田中美咲_スキルシート_202601.pdf",
       updatedAt: "2026/01/15",
     },
+    skillSheetUrl: "/images/member/2_skill_sheet.pdf",
     availability: "案件調整中",
     remarks: "大規模基幹系の開発経験が豊富。チームリード経験あり。",
   },
@@ -78,6 +81,7 @@ export const mockMemberDetails: MemberDetail[] = [
       fileName: "鈴木一郎_スキルシート_202512.pdf",
       updatedAt: "2025/12/20",
     },
+    skillSheetUrl: "/images/member/3_skill_sheet.pdf",
     availability: "稼働中",
     remarks: "Webアプリケーション開発を中心に、インフラ寄りの作業も対応可能。",
   },
@@ -98,6 +102,7 @@ export const mockMemberDetails: MemberDetail[] = [
       fileName: "高橋優子_スキルシート_202602.pdf",
       updatedAt: "2026/02/10",
     },
+    skillSheetUrl: "/images/member/4_skill_sheet.pdf",
     availability: "即可能",
     remarks: "インフラ設計からアプリケーション開発まで幅広く対応可能。",
   },

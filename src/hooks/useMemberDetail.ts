@@ -20,24 +20,14 @@ const useMemberDetail = (id: string) => {
     { label: "提案単価", value: member.unitPrice },
   ];
 
-  const handleEdit = () => {
-    router.push(`/member/${id}/edit`);
-  };
-
   const handleDelete = () => {
     // TODO: 削除確認モーダル実装後に差し替え
-  };
-
-  const handleViewSkillSheet = () => {
-    router.push(`/member/${id}/skill-sheet`);
   };
 
   return {
     member,
     profileFields,
-    handleEdit,
     handleDelete,
-    handleViewSkillSheet,
   };
 };
 

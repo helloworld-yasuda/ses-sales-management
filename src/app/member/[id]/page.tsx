@@ -2,7 +2,7 @@
 
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import { Avatar, Box, Card, Stack, Typography } from "@mui/material";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import ButtonComponent from "@/components/common/Button/Button";
 import StatusLabelComponent from "@/components/common/StatusLabel/StatusLabel";
 import TabsComponent from "@/components/common/Tabs/Tabs";
@@ -10,14 +10,9 @@ import AppLayout from "@/components/Layout/AppLayout";
 import useMemberDetail from "@/hooks/useMemberDetail";
 
 const MemberDetailPage = () => {
+  const router = useRouter();
   const { id } = useParams<{ id: string }>();
-  const {
-    member,
-    profileFields,
-    handleEdit,
-    handleDelete,
-    handleViewSkillSheet,
-  } = useMemberDetail(id);
+  const { member, profileFields, handleDelete } = useMemberDetail(id);
 
   return (
     <AppLayout
@@ -88,7 +83,7 @@ const MemberDetailPage = () => {
               <Stack direction="row" spacing={1.5}>
                 <ButtonComponent
                   variant="outlined"
-                  onClick={handleEdit}
+                  onClick={() => router.push(`/member/${id}/edit`)}
                   sx={{
                     fontWeight: 600,
                     fontSize: 14,
@@ -218,7 +213,7 @@ const MemberDetailPage = () => {
                 </Box>
               </Stack>
               <ButtonComponent
-                onClick={handleViewSkillSheet}
+                onClick={() => router.push(member.skillSheetUrl)}
                 sx={{
                   fontWeight: 600,
                   fontSize: 13,
