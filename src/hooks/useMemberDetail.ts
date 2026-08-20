@@ -38,7 +38,6 @@ const useMemberDetail = (id: string) => {
     handleEdit,
     handleDelete,
     handleViewSkillSheet,
-    router,
   };
 };
 
