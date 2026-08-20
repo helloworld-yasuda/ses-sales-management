@@ -79,7 +79,7 @@ describe("MemberDetailPage", () => {
     await user.click(await screen.findByRole("button", { name: "編集" }));
 
     await waitFor(() => {
-      expect(pushMock).toHaveBeenCalledWith("/member/1/edit/12");
+      expect(pushMock).toHaveBeenCalledWith("/member/1/edit");
     });
   });
 
