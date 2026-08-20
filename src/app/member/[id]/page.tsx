@@ -25,7 +25,7 @@ const MemberDetailPage = () => {
       actions={
         <Stack direction="row" spacing={0.5} sx={{ alignItems: "center" }}>
           <Typography sx={{ fontSize: 14, color: "#64748B" }}>
-            要員管理管理
+            要員管理
           </Typography>
           <Typography sx={{ fontSize: 14, color: "#64748B" }}>/</Typography>
           <Typography sx={{ fontSize: 14, fontWeight: 600, color: "#0F172A" }}>
