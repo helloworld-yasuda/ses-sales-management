@@ -10,8 +10,6 @@ const useMemberDetail = (id: string) => {
     throw new Error("Member not found");
   }
 
-  console.log(member);
-
   const profileFields = [
     { label: "所属会社 / 属性", value: member.affiliation },
     { label: "最寄駅", value: member.nearestStation },
