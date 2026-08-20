@@ -40,7 +40,7 @@ const MemberDetailPage = () => {
           alignItems: "flex-start",
         }}
       >
-        <Stack spacing={3} sx={{ flex: 1, minWidth: 0 }}>
+        <Stack spacing={3} sx={{ width: "50%" }}>
           <Card
             elevation={0}
             sx={{
