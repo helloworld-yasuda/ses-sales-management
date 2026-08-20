@@ -25,6 +25,7 @@ export const TabsComponent = ({ id }: Props) => {
         borderTop: "none",
         minHeight: 48,
         pl: 4,
+        backgroundColor: "#FFFFFF",
         "& .MuiTabs-indicator": {
           backgroundColor: "#386BF2",
         },

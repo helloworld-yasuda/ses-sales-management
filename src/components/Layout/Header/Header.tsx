@@ -17,6 +17,7 @@ const Header = ({ title, actions }: HeaderProps) => {
         px: 4,
         py: 2,
         borderBottom: "1px solid #E2E8F0",
+        backgroundColor: "#FFFFFF",
       }}
     >
       <Typography variant="h6" sx={{ fontWeight: 700, fontSize: 22 }}>
