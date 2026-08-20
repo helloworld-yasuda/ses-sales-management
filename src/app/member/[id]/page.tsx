@@ -68,7 +68,11 @@ const MemberDetailPage = () => {
                 spacing={2.5}
                 sx={{ alignItems: "center" }}
               >
-                <Avatar sx={{ width: 80, height: 80, bgcolor: "#CBD5E1" }} />
+                <Avatar
+                  src={member.imageUrl}
+                  alt={member.name}
+                  sx={{ width: 80, height: 80, bgcolor: "#CBD5E1" }}
+                />
                 <Box>
                   <Typography
                     sx={{ fontWeight: 700, fontSize: 24, color: "#0F172A" }}

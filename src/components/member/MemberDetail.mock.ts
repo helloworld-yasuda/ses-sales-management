@@ -1,5 +1,6 @@
 export type MemberDetail = {
   id: string;
+  imageUrl: string;
   name: string;
   nameKana: string;
   affiliation: string;
@@ -21,6 +22,7 @@ export type MemberDetail = {
 export const mockMemberDetails: MemberDetail[] = [
   {
     id: "1",
+    imageUrl: "/images/member/1.jpg",
     name: "佐藤 健太",
     nameKana: "サトウ ケンタ",
     affiliation: "自社社員 (SES第1事業部)",
@@ -41,6 +43,7 @@ export const mockMemberDetails: MemberDetail[] = [
   },
   {
     id: "2",
+    imageUrl: "/images/member/2.jpg",
     name: "田中 美咲",
     nameKana: "タナカ ミサキ",
     affiliation: "協力会社社員 (パートナー)",
@@ -60,6 +63,7 @@ export const mockMemberDetails: MemberDetail[] = [
   },
   {
     id: "3",
+    imageUrl: "/images/member/3.jpg",
     name: "鈴木 一郎",
     nameKana: "スズキ イチロウ",
     affiliation: "自社社員 (SES第2事業部)",
@@ -79,6 +83,7 @@ export const mockMemberDetails: MemberDetail[] = [
   },
   {
     id: "4",
+    imageUrl: "/images/member/4.jpg",
     name: "高橋 優子",
     nameKana: "タカハシ ユウコ",
     affiliation: "自社社員 (SES第1事業部)",
