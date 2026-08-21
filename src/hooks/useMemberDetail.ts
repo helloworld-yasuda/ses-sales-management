@@ -1,9 +1,6 @@
-import { useRouter } from "next/navigation";
 import { mockMemberDetails } from "@/components/member/MemberDetail.mock";
 
 const useMemberDetail = (id: string) => {
-  const router = useRouter();
-
   // TODO: API 接続時に id で取得する
   const member = mockMemberDetails.find((item) => item.id === id) ?? null;
   if (!member) {
