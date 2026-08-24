@@ -7,9 +7,9 @@ export type CompanyDetail = {
   salesName: string;
   rank: string;
   mainArea: string;
-  interviewAchievement: boolean;
-  deliveryAvailability: boolean;
-  lineAvailability: boolean;
+  interviewAchievement: string;
+  deliveryAvailability: string;
+  lineAvailability: string;
 };
 
 export const mockCompanyDetails: CompanyDetail[] = [
@@ -22,9 +22,9 @@ export const mockCompanyDetails: CompanyDetail[] = [
     salesName: "佐藤 花子",
     rank: "A",
     mainArea: "Java / Spring",
-    interviewAchievement: true,
-    deliveryAvailability: true,
-    lineAvailability: true,
+    interviewAchievement: "有",
+    deliveryAvailability: "有",
+    lineAvailability: "有",
   },
   {
     id: "2",
@@ -35,9 +35,9 @@ export const mockCompanyDetails: CompanyDetail[] = [
     salesName: "田中 美咲",
     rank: "B",
     mainArea: "React / TypeScript",
-    interviewAchievement: true,
-    deliveryAvailability: false,
-    lineAvailability: true,
+    interviewAchievement: "有",
+    deliveryAvailability: "無",
+    lineAvailability: "有",
   },
   {
     id: "3",
@@ -48,9 +48,9 @@ export const mockCompanyDetails: CompanyDetail[] = [
     salesName: "伊藤 直樹",
     rank: "C",
     mainArea: "AWS / Terraform",
-    interviewAchievement: false,
-    deliveryAvailability: true,
-    lineAvailability: false,
+    interviewAchievement: "無",
+    deliveryAvailability: "有",
+    lineAvailability: "無",
   },
   {
     id: "4",
@@ -61,8 +61,8 @@ export const mockCompanyDetails: CompanyDetail[] = [
     salesName: "松本 健",
     rank: "A",
     mainArea: "Python / Django",
-    interviewAchievement: true,
-    deliveryAvailability: true,
-    lineAvailability: false,
+    interviewAchievement: "有",
+    deliveryAvailability: "有",
+    lineAvailability: "無",
   },
 ];
