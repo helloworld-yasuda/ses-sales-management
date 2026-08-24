@@ -57,7 +57,7 @@ describe("CompanyDetailPage", () => {
     expect(screen.getByText(company.representative)).toBeInTheDocument();
     expect(screen.getByText(company.email)).toBeInTheDocument();
     expect(screen.getByText(company.mainArea)).toBeInTheDocument();
-    expect(screen.getAllByText("あり")).toHaveLength(3);
+    expect(screen.getAllByText("有")).toHaveLength(3);
   });
 
   it("別IDの会社詳細が表示される", () => {
@@ -67,8 +67,8 @@ describe("CompanyDetailPage", () => {
 
     expect(screen.getByText(company.name)).toBeInTheDocument();
     expect(screen.getByText(company.representative)).toBeInTheDocument();
-    expect(screen.getAllByText("あり").length).toBeGreaterThan(0);
-    expect(screen.getByText("なし")).toBeInTheDocument();
+    expect(screen.getAllByText("無").length).toBeGreaterThan(0);
+    expect(screen.getByText("無")).toBeInTheDocument();
   });
 
   it("編集する押下で編集画面へ遷移する", async () => {

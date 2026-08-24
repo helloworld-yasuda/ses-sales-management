@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import CompanyCreatePage from "./page";
+import { mockAuthUser } from "@/contexts/AuthContext.mock";
 
 const pushMock = vi.fn();
 
@@ -10,6 +11,7 @@ vi.mock("next/navigation", () => ({
     push: pushMock,
     replace: vi.fn(),
   }),
+  usePathname: () => "/company/create",
 }));
 
 vi.mock("next/image", () => ({
@@ -26,6 +28,14 @@ vi.mock("next/image", () => ({
   }) => <img alt={alt} src={src} width={width} height={height} />,
 }));
 
+vi.mock("@/contexts/AuthContext", () => ({
+  useAuth: () => ({
+    user: mockAuthUser,
+    login: vi.fn(),
+    logout: vi.fn(),
+  }),
+}));
+
 const renderPage = () => render(<CompanyCreatePage />);
 
 describe("CompanyCreatePage", () => {
@@ -33,10 +43,10 @@ describe("CompanyCreatePage", () => {
     pushMock.mockClear();
   });
 
-  it("会社名、代表者名、相手企業担当者、自社営業担当、メールアドレス、業種、面談実績、配信の有無、Lineの有無が表示される", () => {
-    renderPage();
+  it("会社名、共通メールアドレス、相手企業担当者、自社営業担当、ランク、面談実績、配信の有無、Lineの有無が表示される", () => {
+    render(<CompanyCreatePage />);
     expect(screen.getByText("会社名")).toBeInTheDocument();
-    expect(screen.getByText("代表者名")).toBeInTheDocument();
+    expect(screen.getByText("共通メールアドレス")).toBeInTheDocument();
     expect(screen.getByText("相手企業担当者")).toBeInTheDocument();
     expect(screen.getByText("自社営業担当")).toBeInTheDocument();
     expect(screen.getByText("ランク")).toBeInTheDocument();

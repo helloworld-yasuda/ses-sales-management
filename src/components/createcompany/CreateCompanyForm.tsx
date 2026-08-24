@@ -16,8 +16,8 @@ import type { CreateCompanyFormValues } from "@/hooks/useCreateCompanyForm";
 import { Controller } from "react-hook-form";
 
 type CreateCompanyFormProps = {
-  onCreateCompany: (data: CreateCompanyFormValues) => void;
-  onCancel: () => void;
+  onCreateCompany?: (data: CreateCompanyFormValues) => void;
+  onCancel?: () => void;
 };
 
 const CreateCompanyForm = ({
@@ -202,7 +202,7 @@ const CreateCompanyForm = ({
             <ButtonComponent
               type="button"
               onClick={() => {
-                onCancel();
+                onCancel?.();
               }}
               variant="outlined"
               sx={{

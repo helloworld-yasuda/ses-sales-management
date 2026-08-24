@@ -1,26 +1,32 @@
+import { act, renderHook } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-
-const pushMock = vi.fn();
-
-vi.mock("next/navigation", () => ({
-  useRouter: () => ({
-    push: pushMock,
-    replace: vi.fn(),
-  }),
-}));
+import useCreateCompanyForm from "./useCreateCompanyForm";
 
 describe("useCreateCompanyForm", () => {
-  beforeEach(() => {
-    pushMock.mockClear();
-  });
-
-  it("");
-
   it("送信失敗時にエラーメッセージが表示される", async () => {
-    const onCreateCompany = vi.fn();
-    vi.spyOn(onCreateCompany, "mockRejectedValue").mockRejectedValue(
-      new Error("会社登録に失敗しました"),
+    const onCreateCompany = vi
+      .fn()
+      .mockRejectedValue(new Error("会社登録に失敗しました"));
+
+    const { result } = renderHook(() =>
+      useCreateCompanyForm({ onCreateCompany }),
     );
-    expect(onCreateCompany).toHaveBeenCalledWith({ data: "test" });
+
+    await act(async () => {
+      await result.current.onSubmit({
+        companyName: "テスト会社",
+        contactPerson: "テスト太郎",
+        salesPerson: "テスト花子",
+        email: "",
+        companyEmail: "",
+        rank: "",
+        mainArea: "",
+        interviewAchievement: "",
+        deliveryAvailability: "0",
+        lineAvailability: "0",
+      });
+    });
+
+    expect(result.current.submitError).toBe("会社登録に失敗しました");
   });
 });
