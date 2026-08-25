@@ -40,8 +40,8 @@ vi.mock("@/contexts/AuthContext", () => ({
   }),
 }));
 
-vi.mock("@/hooks/useFetchClients", () => ({
-  default: () => ({
+vi.mock("@/hooks/useFetchData", () => ({
+  useFetchData: () => ({
     data: mockCompanyRows.map(({ id, rank, ...rest }) => ({
       clientId: id,
       clientRank: rank,

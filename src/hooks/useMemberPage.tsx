@@ -7,9 +7,10 @@ import LinkComponent from "@/components/common/Link/Link";
 import StatusLabelComponent from "@/components/common/StatusLabel/StatusLabel";
 import type { TableColumn } from "@/components/common/Table/Table";
 import type { MemberTableRow } from "@/app/types/types";
-import useFetchMembers, { Member } from "./useFetchMembers";
+import { Member } from "@/app/types/types";
 import { calculateMonthlyRate } from "./useCalculatMonthlyRate";
 import PAGE_SIZE from "@/app/constants/usePage";
+import { useFetchData } from "./useFetchData";
 
 const memberTableColumns: TableColumn<MemberTableRow>[] = [
   {
@@ -103,7 +104,7 @@ export const useMemberPage = () => {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { data, error, isLoading } = useFetchMembers();
+  const { data, error, isLoading } = useFetchData("members");
 
   const columns = memberTableColumns;
 

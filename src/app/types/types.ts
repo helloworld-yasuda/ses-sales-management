@@ -25,3 +25,22 @@ export const RANK_STYLES = {
   B: { bgcolor: "#E5EDFF", color: "#1A5CCC" },
   C: { bgcolor: "#FFF2E5", color: "#CC801A" },
 };
+
+export type Client = {
+  clientId: number;
+  clientName: string;
+  contactPerson: string;
+  primaryDomain: string;
+  salesPerson: string;
+  clientRank: Rank;
+};
+
+export type Member = {
+  memberId: number;
+  memberName: string;
+  mainSkills: Array<string>;
+  offerRate: number;
+  experienceYears: number;
+  statuses: string;
+  skillSheetUrl: string;
+};

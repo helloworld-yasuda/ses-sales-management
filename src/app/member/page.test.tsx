@@ -37,8 +37,8 @@ vi.mock("@/contexts/AuthContext", () => ({
   }),
 }));
 
-vi.mock("@/hooks/useFetchMembers", () => ({
-  default: () => ({
+vi.mock("@/hooks/useFetchData", () => ({
+  useFetchData: () => ({
     data: mockMemberTableRows.map(({ id, ...rest }) => ({
       memberId: id,
       ...rest,

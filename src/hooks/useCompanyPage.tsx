@@ -7,8 +7,8 @@ import RankLabelComponent from "@/components/common/RankLabel/RankLabel";
 import type { TableColumn } from "@/components/common/Table/Table";
 import type { CompanyTableRow } from "@/app/types/types";
 import LinkComponent from "@/components/common/Link/Link";
-import useFetchClients from "./useFetchClients";
-import type { Client } from "./useFetchClients";
+import { useFetchData } from "./useFetchData";
+import type { Client } from "@/app/types/types";
 import PAGE_SIZE from "@/app/constants/usePage";
 
 // 取引先一覧テーブルのカラム定義
@@ -49,7 +49,7 @@ const companyTableColumns: TableColumn<CompanyTableRow>[] = [
 export const useCompanyPage = () => {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
-  const { data, error, isLoading } = useFetchClients();
+  const { data, error, isLoading } = useFetchData("clients");
   const columns = companyTableColumns;
 
   //Tableのデータに合わせて整形
