@@ -1,5 +1,6 @@
 import { Typography, TypographyProps } from "@mui/material";
-import { Rank, RANK_STYLES } from "./rankStyles";
+import type { Rank } from "@/app/types/types";
+import { RANK_STYLES } from "@/app/types/types";
 
 type RankLabelProps = TypographyProps & {
   rank: Rank;

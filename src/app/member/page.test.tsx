@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { mockAuthUser } from "@/contexts/AuthContext.mock";
 import MemberPage from "./page";
+import { mockMemberTableRows } from "@/components/member/MemberTable.mock";
 
 const pushMock = vi.fn();
 
@@ -33,6 +34,17 @@ vi.mock("@/contexts/AuthContext", () => ({
     user: mockAuthUser,
     login: vi.fn(),
     logout: vi.fn(),
+  }),
+}));
+
+vi.mock("@/hooks/useFetchMembers", () => ({
+  default: () => ({
+    data: mockMemberTableRows.map(({ id, ...rest }) => ({
+      memberId: id,
+      ...rest,
+    })),
+    error: undefined,
+    isLoading: false,
   }),
 }));
 

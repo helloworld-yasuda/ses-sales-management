@@ -8,8 +8,7 @@ import { Paging } from "@/components/common/Paging/Paging";
 import AppLayout from "@/components/Layout/AppLayout";
 
 const CompanyPage = () => {
-  const { columns, rows, handleAdd, handleRowClick, paging } =
-    useCompanyPage();
+  const { columns, rows, handleAdd, handleRowClick, paging } = useCompanyPage();
 
   return (
     <AppLayout

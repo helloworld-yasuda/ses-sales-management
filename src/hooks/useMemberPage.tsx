@@ -6,24 +6,21 @@ import { Avatar, Box, Stack, Typography } from "@mui/material";
 import LinkComponent from "@/components/common/Link/Link";
 import StatusLabelComponent from "@/components/common/StatusLabel/StatusLabel";
 import type { TableColumn } from "@/components/common/Table/Table";
-import {
-  mockPersonnelRows,
-  type PersonnelRow,
-} from "@/components/member/MemberTable.mock";
+import type { MemberTableRow } from "@/app/types/types";
+import useFetchMembers, { Member } from "./useFetchMembers";
+import { calculateMonthlyRate } from "./useCalculatMonthlyRate";
+import PAGE_SIZE from "@/app/constants/usePage";
 
-// TODO: API 接続後は取得データに差し替え
-const PAGE_SIZE = 10;
-
-const memberTableColumns: TableColumn<PersonnelRow>[] = [
+const memberTableColumns: TableColumn<MemberTableRow>[] = [
   {
     label: "要員氏名",
-    key: "name",
+    key: "memberName",
     render: (row) => (
       <Stack direction="row" spacing={1.5} sx={{ alignItems: "center" }}>
         <Avatar sx={{ width: 36, height: 36, bgcolor: "#CBD5E1" }} />
         <Box>
-          <Typography sx={{ fontSize: 14, color: "#212121", lineHeight: 1.4 }}>
-            {row.name}
+          <Typography sx={{ fontSize: 14, color: "#212121", fontWeight: 600 }}>
+            {row.memberName}
           </Typography>
           <Typography sx={{ fontSize: 12, color: "#94A3B8", lineHeight: 1.4 }}>
             {row.nameKana}
@@ -34,10 +31,10 @@ const memberTableColumns: TableColumn<PersonnelRow>[] = [
   },
   {
     label: "主要スキル",
-    key: "skills",
+    key: "mainSkills",
     render: (row) => (
       <Stack direction="row" spacing={0.5}>
-        {row.skills.split(",").map((skill) => (
+        {row.mainSkills.map((skill) => (
           <StatusLabelComponent key={skill}>{skill}</StatusLabelComponent>
         ))}
       </Stack>
@@ -45,25 +42,32 @@ const memberTableColumns: TableColumn<PersonnelRow>[] = [
   },
   {
     label: "単価 / 経験年数",
-    key: "unitPrice",
+    key: "offerRate",
     render: (row) => (
       <Box>
-        <Typography sx={{ fontSize: 14, color: "#212121", lineHeight: 1.4 }}>
-          {row.unitPrice}
+        <Typography
+          sx={{
+            fontSize: 14,
+            color: "#212121",
+            lineHeight: 1.4,
+            fontWeight: 600,
+          }}
+        >
+          {calculateMonthlyRate(row.offerRate)}万円/月
         </Typography>
         <Typography sx={{ fontSize: 12, color: "#64748B", lineHeight: 1.4 }}>
-          {row.experienceYears}
+          経験 {row.experienceYears}年
         </Typography>
       </Box>
     ),
   },
-  { label: "稼働可能時期", key: "availability" },
+  { label: "稼働可能時期", key: "statuses" },
   {
     label: "スキルシート",
-    key: "nameKana",
+    key: "skillSheetUrl",
     render: (row) => (
       <LinkComponent
-        href={`/member/${row.id}/skill-sheet`}
+        href={row.skillSheetUrl}
         underline="none"
         onClick={(event) => event.stopPropagation()}
       >
@@ -99,19 +103,25 @@ export const useMemberPage = () => {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
 
-  // TODO: API 接続後は取得データに差し替え
-  const columns = memberTableColumns;
-  const allRows = mockPersonnelRows;
+  const { data, error, isLoading } = useFetchMembers();
 
-  const totalPages = Math.max(1, Math.ceil(allRows.length / PAGE_SIZE));
+  const columns = memberTableColumns;
+
+  //Tableのデータに合わせて整形
+  const members = (data ?? []).map((member: Member) => ({
+    ...member,
+    id: member.memberId,
+  }));
+
+  const totalPages = Math.max(1, Math.ceil(members.length / PAGE_SIZE));
   const startIndex = (currentPage - 1) * PAGE_SIZE;
-  const rows = allRows.slice(startIndex, startIndex + PAGE_SIZE);
+  const rows = members.slice(startIndex, startIndex + PAGE_SIZE);
 
   const handleAdd = () => {
     router.push("/member/create");
   };
 
-  const handleRowClick = (row: PersonnelRow) => {
+  const handleRowClick = (row: MemberTableRow) => {
     router.push(`/member/${row.id}`);
   };
 
