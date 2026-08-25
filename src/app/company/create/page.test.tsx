@@ -46,10 +46,12 @@ describe("CompanyCreatePage", () => {
   it("会社名、共通メールアドレス、相手企業担当者、自社営業担当、ランク、面談実績、配信の有無、Lineの有無が表示される", () => {
     render(<CompanyCreatePage />);
     expect(screen.getByText("会社名")).toBeInTheDocument();
-    expect(screen.getByText("共通メールアドレス")).toBeInTheDocument();
+    expect(screen.getByText("営業共通メールアドレス")).toBeInTheDocument();
+    expect(screen.getByText("企業担当者メールアドレス")).toBeInTheDocument();
     expect(screen.getByText("相手企業担当者")).toBeInTheDocument();
     expect(screen.getByText("自社営業担当")).toBeInTheDocument();
     expect(screen.getByText("ランク")).toBeInTheDocument();
+    expect(screen.getByText("主要領域")).toBeInTheDocument();
     expect(screen.getByText("面談実績")).toBeInTheDocument();
     expect(screen.getByText("配信の有無")).toBeInTheDocument();
     expect(screen.getByText("Lineの有無")).toBeInTheDocument();

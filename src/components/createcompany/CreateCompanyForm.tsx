@@ -77,14 +77,14 @@ const CreateCompanyForm = ({
             </Stack>
             <Stack direction="row" spacing={3}>
               <Stack spacing={1} sx={{ width: "50%" }}>
-                <LabelComponent label="共通メールアドレス" />
+                <LabelComponent label="営業共通メールアドレス" />
                 <TextFieldComponent
                   placeholder="company"
                   {...register("email")}
                 />
               </Stack>
               <Stack spacing={1} sx={{ width: "50%" }}>
-                <LabelComponent label="企業者担当者メールアドレス" />
+                <LabelComponent label="企業担当者メールアドレス" />
                 <TextFieldComponent
                   placeholder="example@company.co.jp"
                   {...register("companyEmail")}
