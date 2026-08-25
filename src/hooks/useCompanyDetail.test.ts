@@ -27,24 +27,7 @@ describe("useCompanyDetail", () => {
     });
     expect(result.current.fields).toContainEqual({
       label: "面談実績",
-      value: "あり",
-    });
-  });
-
-  it("boolean項目をあり/なしに変換する", () => {
-    const { result } = renderHook(() => useCompanyDetail("2"));
-
-    expect(result.current.fields).toContainEqual({
-      label: "面談実績",
-      value: "あり",
-    });
-    expect(result.current.fields).toContainEqual({
-      label: "配信の有無",
-      value: "なし",
-    });
-    expect(result.current.fields).toContainEqual({
-      label: "Lineの有無",
-      value: "あり",
+      value: "有",
     });
   });
 

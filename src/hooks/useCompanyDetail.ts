@@ -16,7 +16,7 @@ const useCompanyDetail = (id: string) => {
 
   type Field = {
     label: string;
-    value: boolean | string;
+    value: string;
   };
 
   const fields: Field[] = [
@@ -29,15 +29,15 @@ const useCompanyDetail = (id: string) => {
     { label: "主要領域", value: company.mainArea },
     {
       label: "面談実績",
-      value: company.interviewAchievement ? "あり" : "なし",
+      value: company.interviewAchievement,
     },
     {
       label: "配信の有無",
-      value: company.deliveryAvailability ? "あり" : "なし",
+      value: company.deliveryAvailability,
     },
     {
       label: "Lineの有無",
-      value: company.lineAvailability ? "あり" : "なし",
+      value: company.lineAvailability,
     },
   ];
 

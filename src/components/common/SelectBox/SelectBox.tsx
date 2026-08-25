@@ -3,7 +3,7 @@ import { MenuItem, Select, SelectProps } from "@mui/material";
 type SelectBoxComponentProps = SelectProps & {
   options: { label: string; value: string }[];
   placeholder?: string;
-  value: string;
+  value?: string;
   onChange: SelectProps["onChange"];
 };
 
