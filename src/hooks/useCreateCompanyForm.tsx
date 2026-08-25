@@ -40,12 +40,8 @@ const useCreateCompanyForm = ({
   ];
 
   const InterviewOptions: SelectBoxOptions[] = [
-    { label: "0回", value: "0" },
-    { label: "1回", value: "1" },
-    { label: "2回", value: "2" },
-    { label: "3回", value: "3" },
-    { label: "4回", value: "4" },
-    { label: "5回", value: "5" },
+    { label: "有", value: "0" },
+    { label: "無", value: "1" },
   ];
 
   const DeliveryOptions: SelectBoxOptions[] = [
