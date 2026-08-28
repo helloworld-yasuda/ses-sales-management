@@ -43,13 +43,15 @@ describe("CreateCompanyForm", () => {
     await user.click(await screen.findByRole("option", { name: "有" }));
     await user.click(screen.getByRole("button", { name: "取引先を保存" }));
     await waitFor(() => {
-      expect.objectContaining({
-        companyName: "テスト会社",
-        contactPerson: "テスト太郎",
-        salesPerson: "テスト花子",
-        deliveryAvailability: "0",
-        lineAvailability: "0",
-      });
+      expect(onCreateCompany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          companyName: "テスト会社",
+          contactPerson: "テスト太郎",
+          salesPerson: "テスト花子",
+          deliveryAvailability: "0",
+          lineAvailability: "0",
+        }),
+      );
     });
   });
 
