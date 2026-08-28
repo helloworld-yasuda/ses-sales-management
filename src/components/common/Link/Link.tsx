@@ -1,5 +1,6 @@
 import Link from "@mui/material/Link";
 import { LinkProps } from "@mui/material/Link";
+import NextLink from "next/link";
 
 type LinkComponentProps = LinkProps & {
   href: string;
@@ -11,6 +12,7 @@ export const LinkComponent = ({
 }: LinkComponentProps) => {
   return (
     <Link
+      component={NextLink}
       underline={underline}
       sx={[
         {
