@@ -1,26 +1,15 @@
-import Link from "@mui/material/Link";
-import NextLink from "next/link";
+import Link from "next/link";
 import { LinkProps } from "@mui/material/Link";
 
 type LinkComponentProps = LinkProps & {
   href: string;
 };
 
-export const LinkComponent = ({
-  underline = "none",
-  ...props
-}: LinkComponentProps) => {
+export const LinkComponent = ({ href, ...props }: LinkComponentProps) => {
   return (
     <Link
-      component={NextLink}
-      underline={underline}
-      sx={[
-        {
-          "&:visited": {
-            color: "#7C3AED",
-          },
-        },
-      ]}
+      href={href}
+      style={{ textDecoration: "none", color: "#2563EB" }}
       {...props}
     />
   );
