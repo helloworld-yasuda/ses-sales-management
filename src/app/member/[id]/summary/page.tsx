@@ -9,6 +9,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import TextComponent from "@/components/summary/Textcomponent";
 import useCopy from "@/hooks/useCopy";
+import { calculateMonthlyRate } from "@/hooks/useCaluculationMounthlyRate";
 
 const MemberSummaryPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -109,7 +110,7 @@ const MemberSummaryPage = () => {
           />
           <TextComponent
             label="単価"
-            value={memberSummary?.unitPrice || ""}
+            value={`${calculateMonthlyRate(Number(memberSummary?.unitPrice) || 0)}万円`}
             isBold
           />
           <TextComponent

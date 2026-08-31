@@ -27,7 +27,7 @@ describe("CreateCompanyForm", () => {
     pushMock.mockClear();
   });
   it("正しい入力でonCreateCompanyが呼ばれる", async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ delay: null });
     const onCreateCompany = vi.fn();
     render(<CreateCompanyForm onCreateCompany={onCreateCompany} />);
 
@@ -43,22 +43,26 @@ describe("CreateCompanyForm", () => {
     await user.click(await screen.findByRole("option", { name: "有" }));
     await user.click(screen.getByRole("button", { name: "取引先を保存" }));
     await waitFor(() => {
-      expect.objectContaining({
-        companyName: "テスト会社",
-        contactPerson: "テスト太郎",
-        salesPerson: "テスト花子",
-        deliveryAvailability: "0",
-        lineAvailability: "0",
-      });
+      expect(onCreateCompany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          companyName: "テスト会社",
+          contactPerson: "テスト太郎",
+          salesPerson: "テスト花子",
+          deliveryAvailability: "0",
+          lineAvailability: "0",
+        }),
+      );
     });
   });
 
   it("未入力の項目がある場合はエラーメッセージが表示される", async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ delay: null });
     const onCreateCompany = vi.fn();
     render(<CreateCompanyForm onCreateCompany={onCreateCompany} />);
     await user.click(screen.getByRole("button", { name: "取引先を保存" }));
-    expect(screen.getByText("会社名を入力してください")).toBeInTheDocument();
+    expect(
+      await screen.findByText("会社名を入力してください"),
+    ).toBeInTheDocument();
     expect(
       screen.getByText("自社営業担当者を入力してください"),
     ).toBeInTheDocument();
