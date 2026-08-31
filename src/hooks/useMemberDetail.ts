@@ -17,14 +17,9 @@ const useMemberDetail = (id: string) => {
     { label: "提案単価", value: member.unitPrice },
   ];
 
-  const handleDelete = () => {
-    // TODO: 削除確認モーダル実装後に差し替え
-  };
-
   return {
     member,
     profileFields,
-    handleDelete,
   };
 };
 
