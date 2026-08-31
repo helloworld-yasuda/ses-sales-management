@@ -61,7 +61,7 @@ describe("MemberSummaryPage", () => {
 
     expect(screen.getByText(memberSummary.experience)).toBeInTheDocument();
     expect(screen.getByText(memberSummary.nearestStation)).toBeInTheDocument();
-    expect(screen.getByText(memberSummary.unitPrice)).toBeInTheDocument();
+    expect(screen.getByText("60万円")).toBeInTheDocument();
     expect(screen.getByText(memberSummary.parallelStatus)).toBeInTheDocument();
     expect(screen.getByText(memberSummary.availableDate)).toBeInTheDocument();
   });
@@ -82,5 +82,6 @@ describe("MemberSummaryPage", () => {
     const copyButton = await screen.findByTestId("copy-button");
     await user.click(copyButton);
     expect(writeTextMock).toHaveBeenCalledWith(expect.stringContaining("E.T"));
+    expect(writeTextMock).toHaveBeenCalledWith(expect.stringContaining("60万円"));
   });
 });

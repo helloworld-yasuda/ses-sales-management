@@ -27,7 +27,7 @@ export const mockSalesSummary: SalesSummary[] = [
     mainskills: "React / Next.js",
     experience: "実務3年9ヶ月",
     nearestStation: "新宿駅",
-    unitPrice: "60万円 (相談可)",
+    unitPrice: "600000",
     affiliation: "弊社正社員",
     avaiableAreas:
       "・React / Next.jsを用いたWebアプリケーション開発\n・toC向けWebサービス開発\n・toB向けシステム開発",
@@ -53,7 +53,7 @@ export const mockSalesSummary: SalesSummary[] = [
     aiSkills: " ChatGPT, Cursor, Claude",
     experience: "実務1年3ヶ月",
     nearestStation: "新宿駅",
-    unitPrice: "60万円 (相談可)",
+    unitPrice: "600000",
     affiliation: "弊社正社員",
     avaiableAreas:
       "・React / Next.jsを用いたWebアプリケーション開発\n・React Nativeを用いたモバイルアプリ開発\n・React Nativeを用いたモバイルアプリ開発",
