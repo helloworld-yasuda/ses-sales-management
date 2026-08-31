@@ -1,20 +1,26 @@
 "use client";
 
+import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
+import EditIcon from "@mui/icons-material/Edit";
+import { Card, IconButton, Stack, Typography } from "@mui/material";
+import { useParams, useRouter } from "next/navigation";
 import TabsComponent from "@/components/common/Tabs/Tabs";
 import AppLayout from "@/components/Layout/AppLayout";
-import { Card, IconButton, Stack, Typography } from "@mui/material";
-import useMemberSummary from "@/hooks/useSalesSummary";
-import { useParams, useRouter } from "next/navigation";
-import EditIcon from "@mui/icons-material/Edit";
-import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import TextComponent from "@/components/summary/Textcomponent";
+import SummaryEmptyState from "@/components/summary/SummaryEmptyState";
 import useCopy from "@/hooks/useCopy";
+import useMemberSummary from "@/hooks/useSalesSummary";
 
 const MemberSummaryPage = () => {
   const { id } = useParams<{ id: string }>();
   const { memberSummary } = useMemberSummary(id);
   const { handleCopy } = useCopy();
   const router = useRouter();
+  const isEmpty = memberSummary === null;
+  const handleAdd = () => {
+    router.push("/member/createSummary");
+  };
+
   return (
     <AppLayout
       title="要員管理 / 要員詳細"
@@ -33,6 +39,23 @@ const MemberSummaryPage = () => {
       }
     >
       <TabsComponent id={id} />
+      {isEmpty ? (
+        <Card
+          elevation={0}
+          sx={{
+            m: 3,
+            p: 2.5,
+            borderRadius: 2,
+            border: "1px solid #E6E6E6",
+            flex: 1,
+            minHeight: 0,
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <SummaryEmptyState onAdd={handleAdd} />
+        </Card>
+      ) : (
       <Card
         elevation={0}
         sx={{ m: 3, p: 2.5, borderRadius: 2, border: "1px solid #E6E6E6" }}
@@ -195,6 +218,7 @@ const MemberSummaryPage = () => {
           </Typography>
         </Stack>
       </Card>
+      )}
     </AppLayout>
   );
 };

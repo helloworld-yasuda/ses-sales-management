@@ -81,6 +81,27 @@ describe("MemberSummaryPage", () => {
     renderPage();
     const copyButton = await screen.findByTestId("copy-button");
     await user.click(copyButton);
-    expect(writeTextMock).toHaveBeenCalledWith(expect.stringContaining("E.T"));
+    expect(writeTextMock).toHaveBeenCalledWith(
+      expect.stringContaining(mockSalesSummary[0].initial),
+    );
+  });
+
+  it("営業サマリーが0件のとき空状態が表示される", async () => {
+    const user = userEvent.setup();
+    useParamsMock.mockReturnValue({ id: "999" });
+    renderPage();
+
+    expect(screen.getByText("データがありません")).toBeInTheDocument();
+    expect(
+      screen.getByText("営業サマリーを追加してください。"),
+    ).toBeInTheDocument();
+    expect(document.querySelector(".MuiCard-root")).toBeInTheDocument();
+
+    await user.click(
+      screen.getByRole("button", {
+        name: "営業サマリーを登録する",
+      }),
+    );
+    expect(pushMock).toHaveBeenCalledWith("/member/createSummary");
   });
 });
