@@ -2,9 +2,13 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { mockAuthUser } from "@/contexts/AuthContext.mock";
+import { useCompanyPage } from "@/hooks/useCompanyPage";
 import CompanyPage from "./page";
 
 const pushMock = vi.fn();
+const companyPageHook = vi.hoisted(() => ({
+  actual: undefined as undefined | (() => ReturnType<typeof useCompanyPage>),
+}));
 
 vi.mock("next/navigation", () => ({
   useRouter: () => ({
@@ -39,9 +43,26 @@ vi.mock("@/contexts/AuthContext", () => ({
   }),
 }));
 
+vi.mock("@/hooks/useCompanyPage", async (importOriginal) => {
+  const actual =
+    await importOriginal<typeof import("@/hooks/useCompanyPage")>();
+  companyPageHook.actual = actual.useCompanyPage;
+  return {
+    ...actual,
+    useCompanyPage: vi.fn(() => actual.useCompanyPage()),
+  };
+});
+
 describe("CompanyPage", () => {
   beforeEach(() => {
     pushMock.mockClear();
+    vi.mocked(useCompanyPage).mockReset();
+    vi.mocked(useCompanyPage).mockImplementation(() => {
+      if (!companyPageHook.actual) {
+        throw new Error("useCompanyPage actual is not set");
+      }
+      return companyPageHook.actual();
+    });
   });
 
   it("取引先管理とページングが表示される", () => {
@@ -87,5 +108,26 @@ describe("CompanyPage", () => {
     expect(
       screen.queryByText("株式会社テックソリューション"),
     ).not.toBeInTheDocument();
+  });
+
+  it("会社が0件のとき空状態が表示される", async () => {
+    const user = userEvent.setup();
+    vi.mocked(useCompanyPage).mockReturnValue({
+      columns: [{ label: "会社名", key: "companyName" }],
+      rows: [],
+      handleAdd: () => pushMock("/company/create"),
+      handleRowClick: vi.fn(),
+      paging: { currentPage: 1, totalPages: 1, onPageChange: vi.fn() },
+    });
+
+    render(<CompanyPage />);
+
+    expect(screen.getByText("データがありません")).toBeInTheDocument();
+    expect(screen.getByText("取引先を追加してください。")).toBeInTheDocument();
+
+    await user.click(
+      screen.getByRole("button", { name: "＋ 初めての取引先を登録する" }),
+    );
+    expect(pushMock).toHaveBeenCalledWith("/company/create");
   });
 });
