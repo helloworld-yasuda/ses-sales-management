@@ -22,10 +22,20 @@ const Modal = ({
   confirmLabel = "削除する",
   withIcon = true,
 }: ModalProps) => {
+  const handleDialogClose = (
+    _event: object,
+    reason: "backdropClick" | "escapeKeyDown",
+  ) => {
+    if (reason === "backdropClick" || reason === "escapeKeyDown") {
+      return;
+    }
+    onClose();
+  };
+
   return (
     <Dialog
       open={open}
-      onClose={onClose}
+      onClose={handleDialogClose}
       slotProps={{
         paper: {
           sx: {
