@@ -5,20 +5,17 @@ import { useRouter } from "next/navigation";
 import { Stack } from "@mui/material";
 import RankLabelComponent from "@/components/common/RankLabel/RankLabel";
 import type { TableColumn } from "@/components/common/Table/Table";
-import {
-  mockCompanyRows,
-  type CompanyRow,
-} from "@/components/company/CompanyTable.mock";
+import type { CompanyTableRow } from "@/app/types/types";
 import LinkComponent from "@/components/common/Link/Link";
-
-// TODO: API 接続後は削除
-const PAGE_SIZE = 10;
+import { useFetchData } from "./useFetchData";
+import type { Client } from "@/app/types/types";
+import PAGE_SIZE from "@/app/constants/usePage";
 
 // 取引先一覧テーブルのカラム定義
-const companyTableColumns: TableColumn<CompanyRow>[] = [
-  { label: "会社名", key: "companyName" },
+const companyTableColumns: TableColumn<CompanyTableRow>[] = [
+  { label: "会社名", key: "clientName" },
   { label: "営業担当者", key: "contactPerson" },
-  { label: "主要領域", key: "mainArea" },
+  { label: "主要領域", key: "primaryDomain" },
   { label: "自社営業担当", key: "salesPerson" },
   {
     label: "ランク",
@@ -52,20 +49,25 @@ const companyTableColumns: TableColumn<CompanyRow>[] = [
 export const useCompanyPage = () => {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
-
-  // TODO: API 接続後は取得データに差し替え
+  const { data, error, isLoading } = useFetchData("clients");
   const columns = companyTableColumns;
-  const allRows = mockCompanyRows;
 
-  const totalPages = Math.max(1, Math.ceil(allRows.length / PAGE_SIZE));
+  //Tableのデータに合わせて整形
+  const clients = (data ?? []).map((company: Client) => ({
+    ...company,
+    id: company.clientId,
+    rank: company.clientRank,
+  }));
+
+  const totalPages = Math.max(1, Math.ceil(clients.length / PAGE_SIZE));
   const startIndex = (currentPage - 1) * PAGE_SIZE;
-  const rows = allRows.slice(startIndex, startIndex + PAGE_SIZE);
+  const rows = clients.slice(startIndex, startIndex + PAGE_SIZE);
 
   const handleAdd = () => {
     router.push("/company/create");
   };
 
-  const handleRowClick = (row: CompanyRow) => {
+  const handleRowClick = (row: CompanyTableRow) => {
     router.push(`/company/${row.id}`);
   };
 

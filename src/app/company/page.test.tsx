@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { mockAuthUser } from "@/contexts/AuthContext.mock";
 import CompanyPage from "./page";
+import { mockCompanyRows } from "@/components/company/CompanyTable.mock";
 
 const pushMock = vi.fn();
 
@@ -36,6 +37,18 @@ vi.mock("@/contexts/AuthContext", () => ({
     user: mockAuthUser,
     login: vi.fn(),
     logout: vi.fn(),
+  }),
+}));
+
+vi.mock("@/hooks/useFetchData", () => ({
+  useFetchData: () => ({
+    data: mockCompanyRows.map(({ id, rank, ...rest }) => ({
+      clientId: id,
+      clientRank: rank,
+      ...rest,
+    })),
+    error: undefined,
+    isLoading: false,
   }),
 }));
 
