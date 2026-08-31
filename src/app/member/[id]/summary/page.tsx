@@ -9,6 +9,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import TextComponent from "@/components/summary/Textcomponent";
 import useCopy from "@/hooks/useCopy";
+import { formatUnitPrice } from "@/utils/unitPrice";
 
 const MemberSummaryPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -109,7 +110,7 @@ const MemberSummaryPage = () => {
           />
           <TextComponent
             label="単価"
-            value={memberSummary?.unitPrice || ""}
+            value={formatUnitPrice(memberSummary?.unitPrice || "")}
             isBold
           />
           <TextComponent
