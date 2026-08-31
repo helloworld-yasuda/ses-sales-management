@@ -27,7 +27,7 @@ describe("CreateCompanyForm", () => {
     pushMock.mockClear();
   });
   it("正しい入力でonCreateCompanyが呼ばれる", async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ delay: null });
     const onCreateCompany = vi.fn();
     render(<CreateCompanyForm onCreateCompany={onCreateCompany} />);
 
@@ -56,11 +56,13 @@ describe("CreateCompanyForm", () => {
   });
 
   it("未入力の項目がある場合はエラーメッセージが表示される", async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ delay: null });
     const onCreateCompany = vi.fn();
     render(<CreateCompanyForm onCreateCompany={onCreateCompany} />);
     await user.click(screen.getByRole("button", { name: "取引先を保存" }));
-    expect(screen.getByText("会社名を入力してください")).toBeInTheDocument();
+    expect(
+      await screen.findByText("会社名を入力してください"),
+    ).toBeInTheDocument();
     expect(
       screen.getByText("自社営業担当者を入力してください"),
     ).toBeInTheDocument();

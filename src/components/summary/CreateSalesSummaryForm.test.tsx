@@ -28,7 +28,7 @@ describe("CreateSalesSummaryForm", () => {
     pushMock.mockClear();
   });
   it("正しい入力でonCreateSalesSummaryが呼ばれる", async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ delay: null });
     const onCreateSalesSummary = vi.fn();
     render(
       <CreateSalesSummaryForm onCreateSalesSummary={onCreateSalesSummary} />,
@@ -59,14 +59,14 @@ describe("CreateSalesSummaryForm", () => {
   });
 
   it("未入力の項目がある場合はエラーメッセージが表示される", async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ delay: null });
     const onCreateSalesSummary = vi.fn();
     render(
       <CreateSalesSummaryForm onCreateSalesSummary={onCreateSalesSummary} />,
     );
     await user.click(screen.getByRole("button", { name: "保存する" }));
     expect(
-      screen.getByText("氏名（イニシャル）を入力してください"),
+      await screen.findByText("氏名（イニシャル）を入力してください"),
     ).toBeInTheDocument();
     expect(screen.getByText("年齢を入力してください")).toBeInTheDocument();
     expect(

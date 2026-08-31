@@ -12,6 +12,8 @@ const { mockDelayState } = vi.hoisted(() => {
   return { mockDelayState };
 });
 
+const setupUser = () => userEvent.setup({ delay: null });
+
 vi.mock("next/navigation", () => ({
   useRouter: () => ({
     push: pushMock,
@@ -85,7 +87,7 @@ describe("CreateSummaryPage", () => {
   });
 
   it("キャンセルボタンを押下したら/memberに遷移する", async () => {
-    const user = userEvent.setup();
+    const user = setupUser();
     render(<CreateSummaryPage />);
     await user.click(screen.getByRole("button", { name: "キャンセル" }));
     await waitFor(() => {
@@ -94,14 +96,14 @@ describe("CreateSummaryPage", () => {
   });
 
   it("未入力の項目がある場合は/memberに遷移しない", async () => {
-    const user = userEvent.setup();
+    const user = setupUser();
     render(<CreateSummaryPage />);
     await user.click(screen.getByRole("button", { name: "保存する" }));
     expect(pushMock).not.toHaveBeenCalled();
   });
 
   it("必須項目を入力して保存するボタンを押下したら/memberに遷移する", async () => {
-    const user = userEvent.setup();
+    const user = setupUser();
     render(<CreateSummaryPage />);
     await user.type(screen.getByPlaceholderText("例: T.S"), "Y.S");
     await user.type(screen.getByPlaceholderText("例: 28歳"), "25歳");
@@ -126,7 +128,7 @@ describe("CreateSummaryPage", () => {
         resolveDelay = resolve;
       });
 
-    const user = userEvent.setup();
+    const user = setupUser();
     render(<CreateSummaryPage />);
     await user.type(screen.getByPlaceholderText("例: T.S"), "Y.S");
     await user.type(screen.getByPlaceholderText("例: 28歳"), "25歳");

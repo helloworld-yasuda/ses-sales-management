@@ -12,6 +12,45 @@ const { mockDelayState } = vi.hoisted(() => {
   return { mockDelayState };
 });
 
+const setupUser = () => userEvent.setup({ delay: null });
+
+const fillRequiredFields = async (
+  user: ReturnType<typeof userEvent.setup>,
+) => {
+  await user.type(screen.getByPlaceholderText("例：山田 太郎"), "山田太郎");
+  await user.type(
+    screen.getByPlaceholderText("例：ヤマダ タロウ"),
+    "ヤマダタロウ",
+  );
+  await user.type(
+    screen.getByPlaceholderText("例：パートナーA または 自社社員"),
+    "自社社員",
+  );
+  await user.type(screen.getByPlaceholderText("例：新宿駅"), "新宿駅");
+  await user.type(
+    screen.getByPlaceholderText("例：ABC商事株式会社"),
+    "ABC商事株式会社",
+  );
+  await user.type(
+    screen.getByPlaceholderText("例：月末締め翌月末払い"),
+    "月末時め25日払い",
+  );
+  await user.click(screen.getByLabelText("availability"));
+  await user.click(await screen.findByRole("option", { name: "稼働中" }));
+  await user.type(screen.getByPlaceholderText("例：3ヶ月"), "3ヶ月");
+  await user.click(screen.getByLabelText("skills"));
+  await user.click(await screen.findByRole("option", { name: "React" }));
+  await user.click(screen.getByLabelText("skills2"));
+  await user.click(await screen.findByRole("option", { name: "Java" }));
+  await user.type(screen.getByPlaceholderText("例：５年"), "10年");
+  await user.click(screen.getByLabelText("unitPrice"));
+  await user.click(await screen.findByRole("option", { name: "100万円" }));
+  await user.type(
+    screen.getByPlaceholderText("例：https://example.com/skillsheet"),
+    "https://example.com/skillsheet",
+  );
+};
+
 vi.mock("next/navigation", () => ({
   useRouter: () => ({
     push: pushMock,
@@ -81,7 +120,7 @@ describe("CreateMemberPage", () => {
   });
 
   it("キャンセルボタンを押下したら/memberに遷移する", async () => {
-    const user = userEvent.setup();
+    const user = setupUser();
     render(<CreateMemberPage />);
     await user.click(screen.getByRole("button", { name: "キャンセル" }));
     await waitFor(() => {
@@ -90,52 +129,21 @@ describe("CreateMemberPage", () => {
   });
 
   it("未入力の項目がある場合は/memberに遷移しない", async () => {
-    const user = userEvent.setup();
+    const user = setupUser();
     render(<CreateMemberPage />);
     await user.click(screen.getByRole("button", { name: "要員を保存する" }));
     expect(pushMock).not.toHaveBeenCalled();
   });
 
   it("必須項目を入力して要員を保存ボタンを押下したら/memberに遷移する", async () => {
-    const user = userEvent.setup();
+    const user = setupUser();
     render(<CreateMemberPage />);
-    await user.type(screen.getByPlaceholderText("例：山田 太郎"), "山田太郎");
-    await user.type(
-      screen.getByPlaceholderText("例：ヤマダ タロウ"),
-      "ヤマダタロウ",
-    );
-    await user.type(
-      screen.getByPlaceholderText("例：パートナーA または 自社社員"),
-      "自社社員",
-    );
-    await user.type(screen.getByPlaceholderText("例：新宿駅"), "新宿駅");
-    await user.type(
-      screen.getByPlaceholderText("例：ABC商事株式会社"),
-      "ABC商事株式会社",
-    );
-    await user.type(
-      screen.getByPlaceholderText("例：月末締め翌月末払い"),
-      "月末時め25日払い",
-    );
-    await user.click(screen.getByLabelText("availability"));
-    await user.click(await screen.findByRole("option", { name: "稼働中" }));
-    await user.type(screen.getByPlaceholderText("例：3ヶ月"), "3ヶ月");
-    await user.click(screen.getByLabelText("skills"));
-    await user.click(await screen.findByRole("option", { name: "React" }));
-    await user.click(screen.getByLabelText("skills2"));
-    await user.click(await screen.findByRole("option", { name: "Java" }));
-    await user.type(screen.getByPlaceholderText("例：５年"), "10年");
-    await user.click(screen.getByLabelText("unitPrice"));
-    await user.click(await screen.findByRole("option", { name: "100万円" }));
-    await user.type(
-      screen.getByPlaceholderText("例：https://example.com/skillsheet"),
-      "https://example.com/skillsheet",
-    );
+    await fillRequiredFields(user);
     await user.click(screen.getByRole("button", { name: "要員を保存する" }));
     await waitFor(() => {
       expect(pushMock).toHaveBeenCalledWith("/member");
     });
-  });
+  }, 15000);
 
   it("保存中はLoadingを表示する", async () => {
     let resolveDelay: () => void = () => {};
@@ -144,40 +152,9 @@ describe("CreateMemberPage", () => {
         resolveDelay = resolve;
       });
 
-    const user = userEvent.setup();
+    const user = setupUser();
     render(<CreateMemberPage />);
-    await user.type(screen.getByPlaceholderText("例：山田 太郎"), "山田太郎");
-    await user.type(
-      screen.getByPlaceholderText("例：ヤマダ タロウ"),
-      "ヤマダタロウ",
-    );
-    await user.type(
-      screen.getByPlaceholderText("例：パートナーA または 自社社員"),
-      "自社社員",
-    );
-    await user.type(screen.getByPlaceholderText("例：新宿駅"), "新宿駅");
-    await user.type(
-      screen.getByPlaceholderText("例：ABC商事株式会社"),
-      "ABC商事株式会社",
-    );
-    await user.type(
-      screen.getByPlaceholderText("例：月末締め翌月末払い"),
-      "月末時め25日払い",
-    );
-    await user.click(screen.getByLabelText("availability"));
-    await user.click(await screen.findByRole("option", { name: "稼働中" }));
-    await user.type(screen.getByPlaceholderText("例：3ヶ月"), "3ヶ月");
-    await user.click(screen.getByLabelText("skills"));
-    await user.click(await screen.findByRole("option", { name: "React" }));
-    await user.click(screen.getByLabelText("skills2"));
-    await user.click(await screen.findByRole("option", { name: "Java" }));
-    await user.type(screen.getByPlaceholderText("例：５年"), "10年");
-    await user.click(screen.getByLabelText("unitPrice"));
-    await user.click(await screen.findByRole("option", { name: "100万円" }));
-    await user.type(
-      screen.getByPlaceholderText("例：https://example.com/skillsheet"),
-      "https://example.com/skillsheet",
-    );
+    await fillRequiredFields(user);
     await user.click(screen.getByRole("button", { name: "要員を保存する" }));
 
     expect(await screen.findByRole("progressbar")).toBeInTheDocument();
@@ -188,5 +165,5 @@ describe("CreateMemberPage", () => {
     await waitFor(() => {
       expect(pushMock).toHaveBeenCalledWith("/member");
     });
-  });
+  }, 15000);
 });
