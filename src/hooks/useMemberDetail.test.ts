@@ -34,5 +34,4 @@ describe("useMemberDetail", () => {
       "Member not found",
     );
   });
-  //TODO: handleDelete のテストを追加する
 });
