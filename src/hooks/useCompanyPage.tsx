@@ -49,7 +49,7 @@ const companyTableColumns: TableColumn<CompanyTableRow>[] = [
 export const useCompanyPage = () => {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
-  const { data, error, isLoading } = useFetchData("clients");
+  const { data } = useFetchData("clients");
   const columns = companyTableColumns;
 
   //Tableのデータに合わせて整形

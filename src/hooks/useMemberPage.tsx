@@ -104,7 +104,7 @@ export const useMemberPage = () => {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { data, error, isLoading } = useFetchData("members");
+  const { data } = useFetchData("members");
 
   const columns = memberTableColumns;
 
