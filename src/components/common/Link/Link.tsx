@@ -1,4 +1,4 @@
-import Link from "next/link";
+import NextLink from "next/link";
 import { LinkProps } from "@mui/material/Link";
 
 type LinkComponentProps = LinkProps & {
@@ -7,7 +7,7 @@ type LinkComponentProps = LinkProps & {
 
 export const LinkComponent = ({ href, ...props }: LinkComponentProps) => {
   return (
-    <Link
+    <NextLink
       href={href}
       style={{ textDecoration: "none", color: "#2563EB" }}
       {...props}
