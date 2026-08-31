@@ -4,9 +4,12 @@ import AppLayout from "@/components/Layout/AppLayout";
 import { Stack, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import CreateSalesSummaryForm from "@/components/summary/CreateSalesSummaryForm";
+import Loading from "@/components/common/Loading/Loading";
+import { useSubmitCreateSalesSummary } from "@/hooks/useSubmitCreateSalesSummary";
 
 const SalesSummaryCreatePage = () => {
   const router = useRouter();
+  const { handleCreate, isLoading } = useSubmitCreateSalesSummary();
 
   return (
     <AppLayout
@@ -25,8 +28,9 @@ const SalesSummaryCreatePage = () => {
         </Stack>
       }
     >
+      <Loading open={isLoading} />
       <CreateSalesSummaryForm
-        onCreateSalesSummary={() => router.push("/member")}
+        onCreateSalesSummary={handleCreate}
         onCancel={() => router.push("/member")}
       />
     </AppLayout>

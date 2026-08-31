@@ -5,6 +5,12 @@ import CreateSummaryPage from "./page";
 import { userEvent } from "@testing-library/user-event";
 
 const pushMock = vi.fn();
+const { mockDelayState } = vi.hoisted(() => {
+  const mockDelayState: { impl: () => Promise<void> } = {
+    impl: () => Promise.resolve(),
+  };
+  return { mockDelayState };
+});
 
 vi.mock("next/navigation", () => ({
   useRouter: () => ({
@@ -39,9 +45,14 @@ vi.mock("@/contexts/AuthContext", () => ({
   }),
 }));
 
+vi.mock("@/utils/mockDelay", () => ({
+  mockDelay: () => mockDelayState.impl(),
+}));
+
 describe("CreateSummaryPage", () => {
   beforeEach(() => {
     pushMock.mockClear();
+    mockDelayState.impl = () => Promise.resolve();
   });
 
   it("営業サマリー登録フォームが表示される", () => {
@@ -103,6 +114,37 @@ describe("CreateSummaryPage", () => {
     await user.click(screen.getByLabelText("unitPrice"));
     await user.click(await screen.findByRole("option", { name: "50万円" }));
     await user.click(screen.getByRole("button", { name: "保存する" }));
+    await waitFor(() => {
+      expect(pushMock).toHaveBeenCalledWith("/member");
+    });
+  });
+
+  it("保存中はLoadingを表示する", async () => {
+    let resolveDelay: () => void = () => {};
+    mockDelayState.impl = () =>
+      new Promise((resolve) => {
+        resolveDelay = resolve;
+      });
+
+    const user = userEvent.setup();
+    render(<CreateSummaryPage />);
+    await user.type(screen.getByPlaceholderText("例: T.S"), "Y.S");
+    await user.type(screen.getByPlaceholderText("例: 28歳"), "25歳");
+    await user.type(
+      screen.getByPlaceholderText("例: Java, Spring Boot"),
+      "React, Next.js",
+    );
+    await user.type(screen.getByPlaceholderText("例: 5年"), "3年");
+    await user.type(screen.getByPlaceholderText("例: 即日〜, 8月〜"), "10月〜");
+    await user.click(screen.getByLabelText("unitPrice"));
+    await user.click(await screen.findByRole("option", { name: "50万円" }));
+    await user.click(screen.getByRole("button", { name: "保存する" }));
+
+    expect(await screen.findByRole("progressbar")).toBeInTheDocument();
+    expect(screen.getByText("読み込み中...")).toBeVisible();
+    expect(pushMock).not.toHaveBeenCalled();
+
+    resolveDelay();
     await waitFor(() => {
       expect(pushMock).toHaveBeenCalledWith("/member");
     });
