@@ -9,6 +9,7 @@ import type { TableColumn } from "@/components/common/Table/Table";
 import type { MemberTableRow } from "@/app/types/types";
 import { Member } from "@/app/types/types";
 import { calculateMonthlyRate } from "./useCalculatMonthlyRate";
+import { API_ROUTE } from "@/app/constants/apiRoute";
 import PAGE_SIZE from "@/app/constants/usePage";
 import { useFetchData } from "./useFetchData";
 
@@ -104,7 +105,7 @@ export const useMemberPage = () => {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { data, error, isLoading } = useFetchData("members");
+  const { data, error, isLoading } = useFetchData(API_ROUTE.members);
 
   const columns = memberTableColumns;
 
