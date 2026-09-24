@@ -29,17 +29,17 @@ const emptyValues: SummaryFormValues = {
 describe("SummaryForm", { timeout: 15000 }, () => {
   it("追加画面と同じラベルと初期値が表示される", () => {
     const memberSummary = mockSalesSummary[0];
-    render(
-      <SummaryForm defaultValues={toSummaryFormValues(memberSummary)} />,
-    );
+    render(<SummaryForm defaultValues={toSummaryFormValues(memberSummary)} />);
 
     expect(screen.getByText("営業サマリー情報の入力")).toBeInTheDocument();
     expect(screen.getByText("氏名（イニシャル）")).toBeInTheDocument();
     expect(screen.getByText("メイン技術")).toBeInTheDocument();
     expect(screen.getByText("実務経験年数")).toBeInTheDocument();
     expect(screen.getByDisplayValue(memberSummary.initial)).toBeInTheDocument();
-    expect(screen.getByDisplayValue(memberSummary.mainskills)).toBeInTheDocument();
-    expect(screen.getByLabelText("unitPrice")).toHaveTextContent("60万円");
+    expect(
+      screen.getByDisplayValue(memberSummary.mainskills),
+    ).toBeInTheDocument();
+    expect(screen.getByLabelText("unitPrice")).toHaveTextContent("70万円");
   });
 
   it("必須項目が未入力の場合はエラーメッセージが表示される", async () => {
@@ -53,7 +53,9 @@ describe("SummaryForm", { timeout: 15000 }, () => {
       screen.getByText("氏名（イニシャル）を入力してください"),
     ).toBeInTheDocument();
     expect(screen.getByText("年齢を入力してください")).toBeInTheDocument();
-    expect(screen.getByText("メイン技術を入力してください")).toBeInTheDocument();
+    expect(
+      screen.getByText("メイン技術を入力してください"),
+    ).toBeInTheDocument();
     expect(
       screen.getByText("実務経験年数を入力してください"),
     ).toBeInTheDocument();
@@ -76,8 +78,8 @@ describe("SummaryForm", { timeout: 15000 }, () => {
     await waitFor(() => {
       expect(onSave).toHaveBeenCalledWith(
         expect.objectContaining({
-          initial: "E.T",
-          unitPrice: "600000",
+          initial: "T.Y",
+          unitPrice: "700000",
         }),
       );
     });

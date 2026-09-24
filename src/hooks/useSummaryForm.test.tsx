@@ -8,13 +8,13 @@ const defaultValues = toSummaryFormValues(mockSalesSummary[0]);
 describe("useSummaryForm", () => {
   it("モックデータからフォーム初期値に変換できる", () => {
     expect(toSummaryFormValues(mockSalesSummary[0])).toEqual({
-      initial: "E.T",
-      age: "22",
-      mainSkills: "React / Next.js",
-      experience: "実務3年9ヶ月",
+      initial: "T.Y",
+      age: "28",
+      mainSkills: "Spring Boot / Java / PostgreSQL",
+      experience: "実務5年",
       startDate: "7月~",
-      unitPrice: "600000",
-      nearestStation: "新宿駅",
+      unitPrice: "700000",
+      nearestStation: "東京駅",
       affiliation: "弊社正社員",
       features: mockSalesSummary[0].features,
       frontendSkills: mockSalesSummary[0].frontendSkills,
@@ -22,7 +22,7 @@ describe("useSummaryForm", () => {
       databaseSkills: mockSalesSummary[0].databaseSkills,
       aiSkills: mockSalesSummary[0].aiSkills,
       desiredConditions: mockSalesSummary[0].desiredConditions,
-      parallelStatus: "提案のみ",
+      parallelStatus: "待機中",
       availableDate: "柔軟に調整可能",
       avaiableAreas: mockSalesSummary[0].avaiableAreas,
     });
