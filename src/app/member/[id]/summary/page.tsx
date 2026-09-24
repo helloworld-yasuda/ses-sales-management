@@ -9,7 +9,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import TextComponent from "@/components/summary/Textcomponent";
 import useCopy from "@/hooks/useCopy";
-import { calculateMonthlyRate } from "@/hooks/useCaluculationMounthlyRate";
+import { calculateMonthlyRate } from "@/hooks/useCalculatMonthlyRate";
 
 const MemberSummaryPage = () => {
   const { id } = useParams<{ id: string }>();

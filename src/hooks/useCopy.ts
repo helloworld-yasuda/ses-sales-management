@@ -1,5 +1,5 @@
 import { SalesSummary } from "@/components/member/SalesSummary.mock";
-import { calculateMonthlyRate } from "@/hooks/useCaluculationMounthlyRate";
+import { calculateMonthlyRate } from "@/hooks/useCalculatMonthlyRate";
 
 const useCopy = () => {
   const handleCopy = async (memberSummary: SalesSummary | null) => {
