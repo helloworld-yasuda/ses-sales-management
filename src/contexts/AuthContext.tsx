@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, type ReactNode } from "react";
-import { type AuthUser } from "@/contexts/AuthContext.mock";
+import { mockAuthUser, type AuthUser } from "@/contexts/AuthContext.mock";
 
 export type { AuthUser };
 
@@ -18,7 +18,7 @@ type AuthProviderProps = {
 };
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [user, setUser] = useState<AuthUser | null>(null);
+  const [user, setUser] = useState<AuthUser | null>(mockAuthUser);
 
   const value: AuthContextValue = {
     user,

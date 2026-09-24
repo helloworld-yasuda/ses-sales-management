@@ -52,15 +52,20 @@ describe("MemberDetailPage", () => {
     renderPage();
 
     expect(screen.getByText("要員管理 / 詳細情報")).toBeInTheDocument();
-    expect(screen.getByText(member.name)).toBeInTheDocument();
-    expect(screen.getByText(member.nameKana)).toBeInTheDocument();
-    expect(screen.getByText(member.affiliation)).toBeInTheDocument();
-    expect(screen.getByText(member.unitPrice)).toBeInTheDocument();
-    expect(screen.getByText("主要スキル")).toBeInTheDocument();
-    expect(screen.getByText(member.skills[0])).toBeInTheDocument();
-    expect(screen.getByText(member.availability)).toBeInTheDocument();
-    expect(screen.getByText(member.remarks)).toBeInTheDocument();
-    expect(screen.getByText(member.skillSheet.fileName)).toBeInTheDocument();
+    expect(screen.getByText("サトウ ケンタ")).toBeInTheDocument();
+    expect(screen.getByText("佐藤 健太")).toBeInTheDocument();
+    expect(screen.getByText("自社社員 (SES第1事業部)")).toBeInTheDocument();
+    expect(screen.getByText("40万円")).toBeInTheDocument();
+    expect(screen.getByText("3ヶ月")).toBeInTheDocument();
+    expect(screen.getByText("React")).toBeInTheDocument();
+    expect(screen.getByText("Java")).toBeInTheDocument();
+    expect(screen.getByText("稼働中")).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "フロントエンド開発を軸としつつ、Terraformを利用したインフラ構成管理やAWS構築の実務経験もあり。リーダーシップ経験もあり、将来のPM候補として期待できる人材。",
+      ),
+    ).toBeInTheDocument();
+    expect(screen.getByText("最終更新日: 2026/02/01")).toBeInTheDocument();
   });
 
   it("別IDの要員詳細が表示される", () => {

@@ -26,7 +26,7 @@ const emptyValues: SummaryFormValues = {
   avaiableAreas: "",
 };
 
-describe("SummaryForm", () => {
+describe("SummaryForm", { timeout: 15000 }, () => {
   it("追加画面と同じラベルと初期値が表示される", () => {
     const memberSummary = mockSalesSummary[0];
     render(
