@@ -12,7 +12,14 @@ import useMemberDetail from "@/hooks/useMemberDetail";
 const MemberDetailPage = () => {
   const router = useRouter();
   const { id } = useParams<{ id: string }>();
-  const { member, profileFields, handleDelete } = useMemberDetail(id);
+  const {
+    member,
+    profileFields,
+    handleDelete,
+    skills1Labels,
+    skills2Labels,
+    availabilityLabels,
+  } = useMemberDetail(id);
 
   return (
     <AppLayout
@@ -164,9 +171,12 @@ const MemberDetailPage = () => {
               spacing={0.75}
               sx={{ flexWrap: "wrap", gap: 0.75 }}
             >
-              {member.skills.map((skill) => (
-                <StatusLabelComponent key={skill}>{skill}</StatusLabelComponent>
-              ))}
+              <StatusLabelComponent>
+                {skills1Labels(member.skills)}
+              </StatusLabelComponent>
+              <StatusLabelComponent>
+                {skills2Labels(member.skills2)}
+              </StatusLabelComponent>
             </Stack>
           </Card>
 
@@ -205,15 +215,15 @@ const MemberDetailPage = () => {
                   <Typography
                     sx={{ fontWeight: 600, fontSize: 14, color: "#0F172A" }}
                   >
-                    {member.skillSheet.fileName}
+                    {member.skillSheet}
                   </Typography>
                   <Typography sx={{ fontSize: 11, color: "#64748B", mt: 0.25 }}>
-                    最終更新日: {member.skillSheet.updatedAt}
+                    最終更新日: {member.updatedAt}
                   </Typography>
                 </Box>
               </Stack>
               <ButtonComponent
-                onClick={() => router.push(member.skillSheetUrl)}
+                onClick={() => router.push(member.skillSheet)}
                 sx={{
                   fontWeight: 600,
                   fontSize: 13,
@@ -251,7 +261,7 @@ const MemberDetailPage = () => {
                 稼働可否ステータス
               </Typography>
               <Typography sx={{ fontSize: 13, color: "#0F1729" }}>
-                {member.availability}
+                {availabilityLabels(member.availability)}
               </Typography>
             </Stack>
           </Card>

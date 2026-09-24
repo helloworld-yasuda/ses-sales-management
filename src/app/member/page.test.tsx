@@ -4,6 +4,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { mockAuthUser } from "@/contexts/AuthContext.mock";
 import { useMemberPage } from "@/hooks/useMemberPage";
 import MemberPage from "./page";
+import { mockMemberTableRows } from "@/components/member/MemberTable.mock";
 
 const pushMock = vi.fn();
 const memberPageHook = vi.hoisted(() => ({
@@ -48,6 +49,16 @@ vi.mock("@/hooks/useMemberPage", async (importOriginal) => {
     useMemberPage: vi.fn(() => actual.useMemberPage()),
   };
 });
+vi.mock("@/hooks/useFetchData", () => ({
+  useFetchData: () => ({
+    data: mockMemberTableRows.map(({ id, ...rest }) => ({
+      memberId: id,
+      ...rest,
+    })),
+    error: undefined,
+    isLoading: false,
+  }),
+}));
 
 describe("MemberPage", () => {
   beforeEach(() => {
@@ -113,7 +124,7 @@ describe("MemberPage", () => {
   it("要員が0件のとき空状態が表示される", async () => {
     const user = userEvent.setup();
     vi.mocked(useMemberPage).mockReturnValue({
-      columns: [{ label: "要員氏名", key: "name" }],
+      columns: [{ label: "要員氏名", key: "memberName" }],
       rows: [],
       handleAdd: () => pushMock("/member/create"),
       handleRowClick: vi.fn(),
