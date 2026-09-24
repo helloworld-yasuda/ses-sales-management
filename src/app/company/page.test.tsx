@@ -4,6 +4,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { mockAuthUser } from "@/contexts/AuthContext.mock";
 import { useCompanyPage } from "@/hooks/useCompanyPage";
 import CompanyPage from "./page";
+import { mockCompanyRows } from "@/components/company/CompanyTable.mock";
 
 const pushMock = vi.fn();
 const companyPageHook = vi.hoisted(() => ({
@@ -52,6 +53,17 @@ vi.mock("@/hooks/useCompanyPage", async (importOriginal) => {
     useCompanyPage: vi.fn(() => actual.useCompanyPage()),
   };
 });
+vi.mock("@/hooks/useFetchData", () => ({
+  useFetchData: () => ({
+    data: mockCompanyRows.map(({ id, rank, ...rest }) => ({
+      clientId: id,
+      clientRank: rank,
+      ...rest,
+    })),
+    error: undefined,
+    isLoading: false,
+  }),
+}));
 
 describe("CompanyPage", () => {
   beforeEach(() => {
@@ -113,7 +125,7 @@ describe("CompanyPage", () => {
   it("会社が0件のとき空状態が表示される", async () => {
     const user = userEvent.setup();
     vi.mocked(useCompanyPage).mockReturnValue({
-      columns: [{ label: "会社名", key: "companyName" }],
+      columns: [{ label: "会社名", key: "clientName" }],
       rows: [],
       handleAdd: () => pushMock("/company/create"),
       handleRowClick: vi.fn(),

@@ -4,7 +4,7 @@ import LabelComponent from "@/components/common/Label/Label";
 import SelectBoxComponent from "@/components/common/SelectBox/SelectBox";
 import TextFieldComponent from "@/components/common/TextField/TextField";
 import type { SummaryFormValues } from "@/hooks/useSummaryForm";
-import { unitPriceOptions } from "@/utils/unitPrice";
+import { UnitPriceOptions } from "@/constants/memberFormOptions";
 
 type SummaryRequiredFieldsProps = {
   control: Control<SummaryFormValues>;
@@ -77,7 +77,7 @@ const SummaryRequiredFields = ({
             render={({ field }) => (
               <SelectBoxComponent
                 aria-label="unitPrice"
-                options={unitPriceOptions}
+                options={UnitPriceOptions}
                 placeholder="例: 60万円 "
                 value={field.value ?? undefined}
                 onChange={field.onChange}
