@@ -82,5 +82,6 @@ describe("MemberSummaryPage", () => {
     const copyButton = await screen.findByTestId("copy-button");
     await user.click(copyButton);
     expect(writeTextMock).toHaveBeenCalledWith(expect.stringContaining("E.T"));
+    expect(writeTextMock).toHaveBeenCalledWith(expect.stringContaining("60万円"));
   });
 });
