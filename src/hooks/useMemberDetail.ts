@@ -1,5 +1,5 @@
 import { mockMemberDetails } from "@/components/member/MemberDetail.mock";
-import useCuluculationMonthlyprice from "./useCaluculationMonthlyprice";
+import { calculateMonthlyRate } from "./useCalculatMonthlyRate";
 
 const useMemberDetail = (id: string) => {
   // TODO: API 接続時に id で取得する
@@ -45,7 +45,7 @@ const useMemberDetail = (id: string) => {
     { label: "経験年数", value: member.experienceYears },
     {
       label: "提案単価",
-      value: useCuluculationMonthlyprice(member.unitPrice) + "万円",
+      value: calculateMonthlyRate(Number(member.unitPrice)) + "万円",
     },
   ];
 
