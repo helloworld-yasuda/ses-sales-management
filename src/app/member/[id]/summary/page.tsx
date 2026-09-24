@@ -10,6 +10,7 @@ import TextComponent from "@/components/summary/Textcomponent";
 import SummaryEmptyState from "@/components/summary/SummaryEmptyState";
 import useCopy from "@/hooks/useCopy";
 import useMemberSummary from "@/hooks/useSalesSummary";
+import { calculateMonthlyRate } from "@/hooks/useCalculatMonthlyRate";
 
 const MemberSummaryPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -56,168 +57,171 @@ const MemberSummaryPage = () => {
           <SummaryEmptyState onAdd={handleAdd} />
         </Card>
       ) : (
-      <Card
-        elevation={0}
-        sx={{ m: 3, p: 2.5, borderRadius: 2, border: "1px solid #E6E6E6" }}
-      >
-        <Stack spacing={0.5}>
-          <Stack
-            direction="row"
-            spacing={2}
-            sx={{ alignItems: "center", justifyContent: "space-between" }}
-          >
-            <Typography variant="h5" sx={{ fontWeight: 700, fontSize: 28 }}>
-              {memberSummary?.initial} ({memberSummary?.age}歳) |{" "}
-              {memberSummary?.mainskills}
-            </Typography>
-            <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
-              <IconButton
-                sx={{
-                  border: "1px solid #E2E8F0",
-                  borderRadius: 2,
-                  width: 32,
-                  height: 32,
-                }}
-                onClick={() => router.push(`/member/${id}/summary/edit`)}
-                data-testid="edit-button"
-              >
-                <EditIcon />
-              </IconButton>
-              <IconButton
-                sx={{
-                  border: "1px solid #E2E8F0",
-                  borderRadius: 2,
-                  width: 32,
-                  height: 32,
-                }}
-                onClick={() => handleCopy(memberSummary)}
-                data-testid="copy-button"
-              >
-                <ContentCopyOutlinedIcon />
-              </IconButton>
+        <Card
+          elevation={0}
+          sx={{ m: 3, p: 2.5, borderRadius: 2, border: "1px solid #E6E6E6" }}
+        >
+          <Stack spacing={0.5}>
+            <Stack
+              direction="row"
+              spacing={2}
+              sx={{ alignItems: "center", justifyContent: "space-between" }}
+            >
+              <Typography variant="h5" sx={{ fontWeight: 700, fontSize: 28 }}>
+                {memberSummary?.initial} ({memberSummary?.age}歳) |{" "}
+                {memberSummary?.mainskills}
+              </Typography>
+              <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
+                <IconButton
+                  sx={{
+                    border: "1px solid #E2E8F0",
+                    borderRadius: 2,
+                    width: 32,
+                    height: 32,
+                  }}
+                  onClick={() => router.push(`/member/${id}/summary/edit`)}
+                  data-testid="edit-button"
+                >
+                  <EditIcon />
+                </IconButton>
+                <IconButton
+                  sx={{
+                    border: "1px solid #E2E8F0",
+                    borderRadius: 2,
+                    width: 32,
+                    height: 32,
+                  }}
+                  onClick={() => handleCopy(memberSummary)}
+                  data-testid="copy-button"
+                >
+                  <ContentCopyOutlinedIcon />
+                </IconButton>
+              </Stack>
             </Stack>
+            <Typography
+              variant="body1"
+              sx={{ fontSize: 14, fontWeight: 600, color: "#64748B" }}
+            >
+              {memberSummary?.experience}
+            </Typography>
           </Stack>
-          <Typography
-            variant="body1"
-            sx={{ fontSize: 14, fontWeight: 600, color: "#64748B" }}
-          >
-            {memberSummary?.experience}
-          </Typography>
-        </Stack>
-        <Stack spacing={0.5}>
-          <Typography
-            variant="body1"
-            sx={{ fontSize: 16, fontWeight: 700, color: "#0F172A" }}
-          >
-            ■特徴
-          </Typography>
-          <Typography
-            variant="body1"
-            sx={{ fontSize: 14, fontWeight: 400, whiteSpace: "pre-line" }}
-          >
-            {memberSummary?.features}
-          </Typography>
-        </Stack>
-        <Stack spacing={0.5}>
-          <Typography
-            variant="body1"
-            sx={{ fontSize: 16, fontWeight: 700, color: "#0F172A" }}
-          >
-            ■基本情報
-          </Typography>
-          <TextComponent
-            label="稼働開始"
-            value={memberSummary?.startDate || ""}
-            isBold
-          />
-          <TextComponent
-            label="単価"
-            value={memberSummary?.unitPrice || ""}
-            isBold
-          />
-          <TextComponent
-            label="最寄駅"
-            value={memberSummary?.nearestStation || ""}
-            isBold
-          />
-          <TextComponent
-            label="所属"
-            value={memberSummary?.affiliation || ""}
-            isBold
-          />
-        </Stack>
-        <Stack spacing={0.5}>
-          <Typography
-            variant="body1"
-            sx={{ fontSize: 16, fontWeight: 700, color: "#0F172A" }}
-          >
-            ■得意領域・対応可能領域
-          </Typography>
-          <Typography
-            variant="body1"
-            sx={{ fontSize: 14, fontWeight: 400, whiteSpace: "pre-line" }}
-          >
-            {memberSummary?.avaiableAreas}
-          </Typography>
-        </Stack>
-        <Stack spacing={0.5}>
-          <Typography
-            variant="body1"
-            sx={{ fontSize: 16, fontWeight: 700, color: "#0F172A" }}
-          >
-            ■主要技術
-          </Typography>
-          <TextComponent
-            label="Front End"
-            value={memberSummary?.frontendSkills || ""}
-          />
-          <TextComponent
-            label="Back End"
-            value={memberSummary?.backendSkills || ""}
-          />
-          <TextComponent
-            label="Database"
-            value={memberSummary?.databaseSkills || ""}
-          />
-          <TextComponent label="生成AI" value={memberSummary?.aiSkills || ""} />
-        </Stack>
-        <Stack spacing={0.5}>
-          <Typography
-            variant="body1"
-            sx={{ fontSize: 16, fontWeight: 700, color: "#0F172A" }}
-          >
-            ■希望条件
-          </Typography>
-          <Typography
-            variant="body1"
-            sx={{ fontSize: 14, fontWeight: 400, whiteSpace: "pre-line" }}
-          >
-            {memberSummary?.desiredConditions}
-          </Typography>
-        </Stack>
-        <Stack spacing={0.5}>
-          <Typography
-            variant="body1"
-            sx={{ fontSize: 16, fontWeight: 700, color: "#0F172A" }}
-          >
-            ■並行状況
-          </Typography>
-          <Typography variant="body1" sx={{ fontSize: 14, fontWeight: 400 }}>
-            {memberSummary?.parallelStatus}
-          </Typography>
-        </Stack>
-        <Stack spacing={0.5}>
-          <Typography
-            variant="body1"
-            sx={{ fontSize: 16, fontWeight: 700, color: "#0F172A" }}
-          >
-            ■面談可能日程
-          </Typography>
-          <Typography variant="body1" sx={{ fontSize: 14, fontWeight: 400 }}>
-            {memberSummary?.availableDate}
-          </Typography>
-        </Stack>
-      </Card>
+          <Stack spacing={0.5}>
+            <Typography
+              variant="body1"
+              sx={{ fontSize: 16, fontWeight: 700, color: "#0F172A" }}
+            >
+              ■特徴
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{ fontSize: 14, fontWeight: 400, whiteSpace: "pre-line" }}
+            >
+              {memberSummary?.features}
+            </Typography>
+          </Stack>
+          <Stack spacing={0.5}>
+            <Typography
+              variant="body1"
+              sx={{ fontSize: 16, fontWeight: 700, color: "#0F172A" }}
+            >
+              ■基本情報
+            </Typography>
+            <TextComponent
+              label="稼働開始"
+              value={memberSummary?.startDate || ""}
+              isBold
+            />
+            <TextComponent
+              label="単価"
+              value={`${calculateMonthlyRate(Number(memberSummary?.unitPrice) || 0)}万円`}
+              isBold
+            />
+            <TextComponent
+              label="最寄駅"
+              value={memberSummary?.nearestStation || ""}
+              isBold
+            />
+            <TextComponent
+              label="所属"
+              value={memberSummary?.affiliation || ""}
+              isBold
+            />
+          </Stack>
+          <Stack spacing={0.5}>
+            <Typography
+              variant="body1"
+              sx={{ fontSize: 16, fontWeight: 700, color: "#0F172A" }}
+            >
+              ■得意領域・対応可能領域
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{ fontSize: 14, fontWeight: 400, whiteSpace: "pre-line" }}
+            >
+              {memberSummary?.avaiableAreas}
+            </Typography>
+          </Stack>
+          <Stack spacing={0.5}>
+            <Typography
+              variant="body1"
+              sx={{ fontSize: 16, fontWeight: 700, color: "#0F172A" }}
+            >
+              ■主要技術
+            </Typography>
+            <TextComponent
+              label="Front End"
+              value={memberSummary?.frontendSkills || ""}
+            />
+            <TextComponent
+              label="Back End"
+              value={memberSummary?.backendSkills || ""}
+            />
+            <TextComponent
+              label="Database"
+              value={memberSummary?.databaseSkills || ""}
+            />
+            <TextComponent
+              label="生成AI"
+              value={memberSummary?.aiSkills || ""}
+            />
+          </Stack>
+          <Stack spacing={0.5}>
+            <Typography
+              variant="body1"
+              sx={{ fontSize: 16, fontWeight: 700, color: "#0F172A" }}
+            >
+              ■希望条件
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{ fontSize: 14, fontWeight: 400, whiteSpace: "pre-line" }}
+            >
+              {memberSummary?.desiredConditions}
+            </Typography>
+          </Stack>
+          <Stack spacing={0.5}>
+            <Typography
+              variant="body1"
+              sx={{ fontSize: 16, fontWeight: 700, color: "#0F172A" }}
+            >
+              ■並行状況
+            </Typography>
+            <Typography variant="body1" sx={{ fontSize: 14, fontWeight: 400 }}>
+              {memberSummary?.parallelStatus}
+            </Typography>
+          </Stack>
+          <Stack spacing={0.5}>
+            <Typography
+              variant="body1"
+              sx={{ fontSize: 16, fontWeight: 700, color: "#0F172A" }}
+            >
+              ■面談可能日程
+            </Typography>
+            <Typography variant="body1" sx={{ fontSize: 14, fontWeight: 400 }}>
+              {memberSummary?.availableDate}
+            </Typography>
+          </Stack>
+        </Card>
       )}
     </AppLayout>
   );

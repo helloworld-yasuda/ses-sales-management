@@ -27,7 +27,7 @@ export const mockSalesSummary: SalesSummary[] = [
     mainskills: "Spring Boot / Java / PostgreSQL",
     experience: "実務5年",
     nearestStation: "東京駅",
-    unitPrice: "70万円 (相談可)",
+    unitPrice: "700000",
     affiliation: "弊社正社員",
     avaiableAreas:
       "・Java / Spring Bootを用いたWebアプリケーション開発\n・toB向け基幹システム開発",
@@ -49,7 +49,7 @@ export const mockSalesSummary: SalesSummary[] = [
     mainskills: "TypeScript / React",
     experience: "実務3年6ヶ月",
     nearestStation: "渋谷駅",
-    unitPrice: "55万円 (相談可)",
+    unitPrice: "550000",
     affiliation: "弊社正社員",
     avaiableAreas:
       "・React / TypeScriptを用いたWebアプリケーション開発\n・toC向けWebサービス開発",
@@ -71,7 +71,7 @@ export const mockSalesSummary: SalesSummary[] = [
     mainskills: "Java / Docker / AWS",
     experience: "実務8年",
     nearestStation: "品川駅",
-    unitPrice: "90万円 (相談可)",
+    unitPrice: "900000",
     affiliation: "弊社正社員",
     avaiableAreas:
       "・Javaを用いたWebアプリケーション開発\n・AWSを用いたインフラ構築",
@@ -92,7 +92,7 @@ export const mockSalesSummary: SalesSummary[] = [
     mainskills: "React / Go",
     experience: "実務12年",
     nearestStation: "新宿駅",
-    unitPrice: "110万円 (相談可)",
+    unitPrice: "1100000",
     affiliation: "弊社正社員",
     avaiableAreas:
       "・Reactを用いたWebアプリケーション開発\n・Goを用いたAPI開発",
@@ -114,7 +114,7 @@ export const mockSalesSummary: SalesSummary[] = [
     mainskills: "Nuxt.js / Vue.js",
     experience: "実務4年",
     nearestStation: "池袋駅",
-    unitPrice: "60万円 (相談可)",
+    unitPrice: "600000",
     affiliation: "弊社正社員",
     avaiableAreas:
       "・Vue.js / Nuxt.jsを用いたWebアプリケーション開発\n・toC向けWebサービス開発",
@@ -135,7 +135,7 @@ export const mockSalesSummary: SalesSummary[] = [
     mainskills: "Flutter / Kotlin",
     experience: "実務6年6ヶ月",
     nearestStation: "横浜駅",
-    unitPrice: "75万円 (相談可)",
+    unitPrice: "750000",
     affiliation: "弊社正社員",
     avaiableAreas:
       "・Flutterを用いたモバイルアプリ開発\n・Kotlinを用いたAndroid開発",

@@ -21,3 +21,5 @@ jobs:
 
       - name: Run tests
         run: "npm test" #テストを実行する記述
+        env:
+          NEXT_PUBLIC_API_BASE_URL: ${{ secrets.NEXT_PUBLIC_API_BASE_URL }}

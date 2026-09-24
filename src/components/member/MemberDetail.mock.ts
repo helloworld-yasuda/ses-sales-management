@@ -10,14 +10,12 @@ export type MemberDetail = {
   renewal: string;
   experienceYears: string;
   unitPrice: string;
-  skills: string[];
-  skillSheet: {
-    fileName: string;
-    updatedAt: string;
-  };
-  skillSheetUrl: string;
+  skills: string;
+  skills2: string;
+  skillSheet: string;
   availability: string;
   remarks: string;
+  updatedAt: string;
 };
 
 export const mockMemberDetails: MemberDetail[] = [
@@ -32,16 +30,14 @@ export const mockMemberDetails: MemberDetail[] = [
     paymentTerms: "月末締め翌月末払い",
     renewal: "3ヶ月",
     experienceYears: "8年 (フロントエンド中心)",
-    unitPrice: "85万円/月",
-    skills: ["React", "TypeScript", "Node.js", "AWS"],
-    skillSheet: {
-      fileName: "佐藤健太_スキルシート_202602.pdf",
-      updatedAt: "2026/02/01",
-    },
-    skillSheetUrl: "/images/member/1_skill_sheet.pdf",
-    availability: "即可能",
+    unitPrice: "400000",
+    skills: "0",
+    skills2: "0",
+    skillSheet: "/images/member/1_skill_sheet.pdf",
+    availability: "1",
     remarks:
       "フロントエンド開発を軸としつつ、Terraformを利用したインフラ構成管理やAWS構築の実務経験もあり。リーダーシップ経験もあり、将来のPM候補として期待できる人材。",
+    updatedAt: "2026/02/01",
   },
   {
     id: "2",
@@ -54,15 +50,13 @@ export const mockMemberDetails: MemberDetail[] = [
     paymentTerms: "月末締め翌々月末払い",
     renewal: "6ヶ月",
     experienceYears: "6年 (バックエンド中心)",
-    unitPrice: "75万円/月",
-    skills: ["Java", "Spring Boot", "PostgreSQL"],
-    skillSheet: {
-      fileName: "田中美咲_スキルシート_202601.pdf",
-      updatedAt: "2026/01/15",
-    },
-    skillSheetUrl: "/images/member/2_skill_sheet.pdf",
-    availability: "案件調整中",
+    unitPrice: "500000",
+    skills: "0",
+    skills2: "0",
+    skillSheet: "/images/member/2_skill_sheet.pdf",
+    availability: "0",
     remarks: "大規模基幹系の開発経験が豊富。チームリード経験あり。",
+    updatedAt: "2026/01/15",
   },
   {
     id: "3",
@@ -75,15 +69,13 @@ export const mockMemberDetails: MemberDetail[] = [
     paymentTerms: "月末締め翌月末払い",
     renewal: "3ヶ月",
     experienceYears: "5年 (フルスタック)",
-    unitPrice: "70万円/月",
-    skills: ["Vue.js", "PHP", "Laravel", "Docker"],
-    skillSheet: {
-      fileName: "鈴木一郎_スキルシート_202512.pdf",
-      updatedAt: "2025/12/20",
-    },
-    skillSheetUrl: "/images/member/3_skill_sheet.pdf",
-    availability: "稼働中",
+    unitPrice: "600000",
+    skills: "0",
+    skills2: "0",
+    skillSheet: "/images/member/3_skill_sheet.pdf",
+    availability: "0",
     remarks: "Webアプリケーション開発を中心に、インフラ寄りの作業も対応可能。",
+    updatedAt: "2025/12/20",
   },
   {
     id: "4",
@@ -96,14 +88,54 @@ export const mockMemberDetails: MemberDetail[] = [
     paymentTerms: "月末締め翌月末払い",
     renewal: "6ヶ月",
     experienceYears: "10年 (インフラ・バックエンド)",
-    unitPrice: "90万円/月",
-    skills: ["Python", "Django", "AWS", "Terraform"],
-    skillSheet: {
-      fileName: "高橋優子_スキルシート_202602.pdf",
-      updatedAt: "2026/02/10",
-    },
-    skillSheetUrl: "/images/member/4_skill_sheet.pdf",
-    availability: "即可能",
+    unitPrice: "500000",
+    skills: "0",
+    skills2: "0",
+    skillSheet: "/images/member/4_skill_sheet.pdf",
+    availability: "1",
     remarks: "インフラ設計からアプリケーション開発まで幅広く対応可能。",
+    updatedAt: "2026/02/10",
+  },
+  {
+    id: "5",
+    imageUrl: "/images/member/5.jpg",
+    name: "高橋 美咲",
+    nameKana: "タカハシ ミサキ",
+    affiliation: "自社社員 (SES第1事業部)",
+    nearestStation: "横浜駅",
+    upperCompany: "フロントワークス株式会社",
+    paymentTerms: "月末締め翌月末払い",
+    renewal: "3ヶ月",
+    experienceYears: "4年 (フロントエンド中心)",
+    unitPrice: "60万円/月",
+    skills: ["Nuxt.js", "Vue.js"],
+    skillSheet: {
+      fileName: "高橋美咲_スキルシート_202603.pdf",
+      updatedAt: "2026/03/01",
+    },
+    skillSheetUrl: "https://example.com/skills/takahashi.pdf",
+    availability: "面談中",
+    remarks: "Vue.js / Nuxt.js を中心としたフロントエンド開発が得意。",
+  },
+  {
+    id: "6",
+    imageUrl: "/images/member/6.jpg",
+    name: "伊藤 健",
+    nameKana: "イトウ ケン",
+    affiliation: "協力会社社員 (パートナー)",
+    nearestStation: "秋葉原駅",
+    upperCompany: "モバイルテック株式会社",
+    paymentTerms: "月末締め翌々月末払い",
+    renewal: "6ヶ月",
+    experienceYears: "6年6ヶ月 (モバイル中心)",
+    unitPrice: "75万円/月",
+    skills: ["Flutter", "Kotlin"],
+    skillSheet: {
+      fileName: "伊藤健_スキルシート_202603.pdf",
+      updatedAt: "2026/03/10",
+    },
+    skillSheetUrl: "https://example.com/skills/ito.pdf",
+    availability: "待機中",
+    remarks: "Flutter / Kotlin によるモバイルアプリ開発の実務経験が豊富。",
   },
 ];
