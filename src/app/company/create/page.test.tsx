@@ -5,6 +5,12 @@ import CompanyCreatePage from "./page";
 import { mockAuthUser } from "@/contexts/AuthContext.mock";
 
 const pushMock = vi.fn();
+const { mockDelayState } = vi.hoisted(() => {
+  const mockDelayState: { impl: () => Promise<void> } = {
+    impl: () => Promise.resolve(),
+  };
+  return { mockDelayState };
+});
 
 vi.mock("next/navigation", () => ({
   useRouter: () => ({
@@ -36,11 +42,28 @@ vi.mock("@/contexts/AuthContext", () => ({
   }),
 }));
 
+vi.mock("@/utils/mockDelay", () => ({
+  mockDelay: () => mockDelayState.impl(),
+}));
+
+const fillRequiredFields = async (
+  user: ReturnType<typeof userEvent.setup>,
+) => {
+  await user.type(screen.getByPlaceholderText("株式会社〇〇〇"), "テスト会社");
+  await user.type(screen.getByPlaceholderText("山田 太郎"), "テスト太郎");
+  await user.type(screen.getByPlaceholderText("山田 花子"), "テスト花子");
+  await user.click(screen.getByLabelText("配信の有無"));
+  await user.click(await screen.findByRole("option", { name: "有" }));
+  await user.click(screen.getByLabelText("Lineの有無"));
+  await user.click(await screen.findByRole("option", { name: "有" }));
+};
+
 const renderPage = () => render(<CompanyCreatePage />);
 
 describe("CompanyCreatePage", () => {
   beforeEach(() => {
     pushMock.mockClear();
+    mockDelayState.impl = () => Promise.resolve();
   });
 
   it("会社名、共通メールアドレス、相手企業担当者、自社営業担当、ランク、面談実績、配信の有無、Lineの有無が表示される", () => {
@@ -67,18 +90,31 @@ describe("CompanyCreatePage", () => {
   it("必須項目を入力して取引先を保存ボタンを押下したら/companyに遷移する", async () => {
     const user = userEvent.setup();
     renderPage();
-    await user.type(
-      screen.getByPlaceholderText("株式会社〇〇〇"),
-      "テスト会社",
-    );
-    await user.type(screen.getByPlaceholderText("山田 太郎"), "テスト太郎");
-    await user.type(screen.getByPlaceholderText("山田 花子"), "テスト花子");
-    await user.click(screen.getByLabelText("配信の有無"));
-    await user.click(await screen.findByRole("option", { name: "有" }));
-    await user.click(screen.getByLabelText("Lineの有無"));
-    await user.click(await screen.findByRole("option", { name: "有" }));
+    await fillRequiredFields(user);
 
     await user.click(screen.getByRole("button", { name: "取引先を保存" }));
+    await waitFor(() => {
+      expect(pushMock).toHaveBeenCalledWith("/company");
+    });
+  });
+
+  it("保存中はLoadingを表示する", async () => {
+    let resolveDelay: () => void = () => {};
+    mockDelayState.impl = () =>
+      new Promise((resolve) => {
+        resolveDelay = resolve;
+      });
+
+    const user = userEvent.setup();
+    renderPage();
+    await fillRequiredFields(user);
+    await user.click(screen.getByRole("button", { name: "取引先を保存" }));
+
+    expect(await screen.findByRole("progressbar")).toBeInTheDocument();
+    expect(screen.getByText("読み込み中...")).toBeVisible();
+    expect(pushMock).not.toHaveBeenCalled();
+
+    resolveDelay();
     await waitFor(() => {
       expect(pushMock).toHaveBeenCalledWith("/company");
     });
