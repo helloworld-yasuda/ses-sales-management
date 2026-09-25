@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { mockMemberDetails } from "@/components/member/MemberDetail.mock";
 import { mockAuthUser } from "@/contexts/AuthContext.mock";
+import { mockDelay } from "@/utils/mockDelay";
 import MemberDetailPage from "./page";
 
 const pushMock = vi.fn();
@@ -39,12 +40,18 @@ vi.mock("@/contexts/AuthContext", () => ({
   }),
 }));
 
+vi.mock("@/utils/mockDelay", () => ({
+  mockDelay: vi.fn(() => Promise.resolve()),
+}));
+
 const renderPage = () => render(<MemberDetailPage />);
 
 describe("MemberDetailPage", () => {
   beforeEach(() => {
     pushMock.mockClear();
     useParamsMock.mockReturnValue({ id: "1" });
+    vi.mocked(mockDelay).mockReset();
+    vi.mocked(mockDelay).mockResolvedValue(undefined);
   });
 
   it("要員詳細の主要情報が表示される", () => {
@@ -52,15 +59,20 @@ describe("MemberDetailPage", () => {
     renderPage();
 
     expect(screen.getByText("要員管理 / 詳細情報")).toBeInTheDocument();
-    expect(screen.getByText(member.name)).toBeInTheDocument();
-    expect(screen.getByText(member.nameKana)).toBeInTheDocument();
-    expect(screen.getByText(member.affiliation)).toBeInTheDocument();
-    expect(screen.getByText(member.unitPrice)).toBeInTheDocument();
-    expect(screen.getByText("主要スキル")).toBeInTheDocument();
-    expect(screen.getByText(member.skills[0])).toBeInTheDocument();
-    expect(screen.getByText(member.availability)).toBeInTheDocument();
-    expect(screen.getByText(member.remarks)).toBeInTheDocument();
-    expect(screen.getByText(member.skillSheet.fileName)).toBeInTheDocument();
+    expect(screen.getByText("サトウ ケンタ")).toBeInTheDocument();
+    expect(screen.getByText("佐藤 健太")).toBeInTheDocument();
+    expect(screen.getByText("自社社員 (SES第1事業部)")).toBeInTheDocument();
+    expect(screen.getByText("40万円")).toBeInTheDocument();
+    expect(screen.getByText("3ヶ月")).toBeInTheDocument();
+    expect(screen.getByText("React")).toBeInTheDocument();
+    expect(screen.getByText("Java")).toBeInTheDocument();
+    expect(screen.getByText("稼働中")).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "フロントエンド開発を軸としつつ、Terraformを利用したインフラ構成管理やAWS構築の実務経験もあり。リーダーシップ経験もあり、将来のPM候補として期待できる人材。",
+      ),
+    ).toBeInTheDocument();
+    expect(screen.getByText("最終更新日: 2026/02/01")).toBeInTheDocument();
   });
 
   it("別IDの要員詳細が表示される", () => {
@@ -98,5 +110,59 @@ describe("MemberDetailPage", () => {
     useParamsMock.mockReturnValue({ id: "999" });
 
     expect(() => renderPage()).toThrow("Member not found");
+  });
+
+  it("削除押下で確認モーダルが表示される", async () => {
+    const user = userEvent.setup({ delay: null });
+    renderPage();
+
+    await user.click(await screen.findByRole("button", { name: "削除" }));
+
+    expect(screen.getByText("要員を削除しますか")).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "この操作は元に戻せません。関連するデータもすべて削除されます。",
+      ),
+    ).toBeInTheDocument();
+  });
+
+  it("キャンセル押下でモーダルが閉じ、遷移しない", async () => {
+    const user = userEvent.setup({ delay: null });
+    renderPage();
+
+    await user.click(await screen.findByRole("button", { name: "削除" }));
+    await user.click(screen.getByRole("button", { name: "キャンセル" }));
+
+    await waitFor(() => {
+      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    });
+    expect(pushMock).not.toHaveBeenCalled();
+  });
+
+  it("削除する押下でローディング後に一覧へ遷移する", async () => {
+    let resolveDelay: () => void = () => {};
+    vi.mocked(mockDelay).mockImplementation(
+      () =>
+        new Promise((resolve) => {
+          resolveDelay = resolve;
+        }),
+    );
+
+    const user = userEvent.setup({ delay: null });
+    renderPage();
+
+    await user.click(await screen.findByRole("button", { name: "削除" }));
+    await user.click(screen.getByRole("button", { name: "削除する" }));
+
+    expect(await screen.findByRole("progressbar")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    });
+
+    resolveDelay();
+
+    await waitFor(() => {
+      expect(pushMock).toHaveBeenCalledWith("/member");
+    });
   });
 });

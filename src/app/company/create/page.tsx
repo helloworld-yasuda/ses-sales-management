@@ -3,10 +3,13 @@
 import AppLayout from "@/components/Layout/AppLayout";
 import { Stack, Typography } from "@mui/material";
 import CreateCompanyForm from "@/components/createcompany/CreateCompanyForm";
+import Loading from "@/components/common/Loading/Loading";
+import { useCreateCompany } from "@/hooks/useCreateCompany";
 import { useRouter } from "next/navigation";
 
 const CompanyCreatePage = () => {
   const router = useRouter();
+  const { handleCreate, isLoading } = useCreateCompany();
 
   return (
     <AppLayout
@@ -25,8 +28,9 @@ const CompanyCreatePage = () => {
         </Stack>
       }
     >
+      <Loading open={isLoading} />
       <CreateCompanyForm
-        onCreateCompany={() => router.push("/company")}
+        onCreateCompany={handleCreate}
         onCancel={() => router.push("/company")}
       />
     </AppLayout>

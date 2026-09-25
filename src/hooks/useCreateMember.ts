@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useState } from "react";
+import { UnitPriceOptions } from "@/constants/memberFormOptions";
 
 const createMemberFormSchema = z.object({
   memberName: z.string().trim().min(1, "氏名を入力してください"),
@@ -64,16 +65,6 @@ const useCreateMember = ({
     { label: "即可能", value: "0" },
     { label: "稼働中", value: "1" },
     { label: "休職中", value: "2" },
-  ];
-
-  const UnitPriceOptions: SelectBoxOptions[] = [
-    { label: "40万円", value: "400000" },
-    { label: "50万円", value: "500000" },
-    { label: "60万円", value: "600000" },
-    { label: "70万円", value: "700000" },
-    { label: "80万円", value: "800000" },
-    { label: "90万円", value: "900000" },
-    { label: "100万円", value: "1000000" },
   ];
 
   const {

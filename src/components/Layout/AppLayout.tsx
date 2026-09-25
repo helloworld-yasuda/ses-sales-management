@@ -33,16 +33,33 @@ const AppLayout = ({ title, actions, children }: AppLayoutProps) => {
   }
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", height: "100vh" }}>
       <Sidebar
         userName={user.userName}
         role={user.role}
         avatarUrl={user.avatarUrl}
         onLogout={handleLogout}
       />
-      <Box sx={{ flexGrow: 1, minWidth: 0 }}>
+      <Box
+        sx={{
+          flexGrow: 1,
+          minWidth: 0,
+          height: "100vh",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
         <Header title={title} actions={actions} />
-        {children}
+        <Box
+          sx={{
+            flex: 1,
+            minHeight: 0,
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          {children}
+        </Box>
       </Box>
     </Box>
   );
