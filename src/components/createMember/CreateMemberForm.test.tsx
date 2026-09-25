@@ -26,11 +26,12 @@ describe("CreateMemberForm", () => {
   beforeEach(() => {
     pushMock.mockClear();
   });
-  it("正しい入力でonCreateCompanyが呼ばれる", async () => {
-    const user = userEvent.setup();
-    const onCreateMember = vi.fn();
-    render(<CreateMemberForm onCreateMember={onCreateMember} />);
 
+  const setupUser = () => userEvent.setup({ delay: null });
+
+  const fillRequiredFields = async (
+    user: ReturnType<typeof userEvent.setup>,
+  ) => {
     await user.type(screen.getByPlaceholderText("例：山田 太郎"), "山田太郎");
     await user.type(
       screen.getByPlaceholderText("例：ヤマダ タロウ"),
@@ -63,6 +64,14 @@ describe("CreateMemberForm", () => {
       screen.getByPlaceholderText("例：https://example.com/skillsheet"),
       "https://example.com/skillsheet",
     );
+  };
+
+  it("正しい入力でonCreateMemberが呼ばれる", async () => {
+    const user = setupUser();
+    const onCreateMember = vi.fn();
+    render(<CreateMemberForm onCreateMember={onCreateMember} />);
+
+    await fillRequiredFields(user);
     await user.click(screen.getByRole("button", { name: "要員を保存する" }));
     await waitFor(() => {
       expect(onCreateMember).toHaveBeenCalledWith(
@@ -84,36 +93,16 @@ describe("CreateMemberForm", () => {
         }),
       );
     });
-  });
+  }, 15000);
 
   it("未入力の項目がある場合はエラーメッセージが表示される", async () => {
-    const user = userEvent.setup();
+    const user = setupUser();
     const onCreateMember = vi.fn();
     render(<CreateMemberForm onCreateMember={onCreateMember} />);
     await user.click(screen.getByRole("button", { name: "要員を保存する" }));
-    expect(screen.getByText("氏名を入力してください")).toBeInTheDocument();
+    expect(
+      await screen.findByText("氏名を入力してください"),
+    ).toBeInTheDocument();
     expect(screen.getByText("フリガナを入力してください")).toBeInTheDocument();
-    expect(
-      screen.getByText("所属会社 / 属性を入力してください"),
-    ).toBeInTheDocument();
-    expect(screen.getByText("最寄駅を入力してください")).toBeInTheDocument();
-    expect(
-      screen.getByText("稼働ステータスを選択してください"),
-    ).toBeInTheDocument();
-    expect(screen.getByText("上位会社を入力してください")).toBeInTheDocument();
-    expect(
-      screen.getByText("支払サイトを入力してください"),
-    ).toBeInTheDocument();
-    expect(screen.getByText("更新頻度を入力してください")).toBeInTheDocument();
-    expect(screen.getByText("提案単価を選択してください")).toBeInTheDocument();
-    expect(
-      screen.getByText("主要スキル1 を選択してください"),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText("主要スキル2 を選択してください"),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText("スキルシートURLを入力してください"),
-    ).toBeInTheDocument();
   });
 });

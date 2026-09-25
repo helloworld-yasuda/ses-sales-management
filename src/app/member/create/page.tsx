@@ -3,10 +3,13 @@
 import AppLayout from "@/components/Layout/AppLayout";
 import { Stack, Typography } from "@mui/material";
 import CreateMemberForm from "@/components/createMember/CreateMemberForm";
+import Loading from "@/components/common/Loading/Loading";
+import { useSubmitCreateMember } from "@/hooks/useSubmitCreateMember";
 import { useRouter } from "next/navigation";
 
 const CreateMemberPage = () => {
   const router = useRouter();
+  const { handleCreate, isLoading } = useSubmitCreateMember();
 
   return (
     <AppLayout
@@ -25,8 +28,9 @@ const CreateMemberPage = () => {
         </Stack>
       }
     >
+      <Loading open={isLoading} />
       <CreateMemberForm
-        onCreateMember={() => router.push("/member")}
+        onCreateMember={handleCreate}
         onCancel={() => router.push("/member")}
       />
     </AppLayout>
