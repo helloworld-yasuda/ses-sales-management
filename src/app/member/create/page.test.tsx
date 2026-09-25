@@ -39,7 +39,7 @@ vi.mock("@/contexts/AuthContext", () => ({
   }),
 }));
 
-describe("CreateMemberPage", { timeout: 15000 }, () => {
+describe("CreateMemberPage", () => {
   beforeEach(() => {
     pushMock.mockClear();
   });

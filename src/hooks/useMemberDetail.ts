@@ -49,17 +49,12 @@ const useMemberDetail = (id: string) => {
     },
   ];
 
-  const handleDelete = () => {
-    // TODO: 削除確認モーダル実装後に差し替え
-  };
-
   return {
     availabilityLabels,
     skills1Labels,
     skills2Labels,
     member,
     profileFields,
-    handleDelete,
   };
 };
 

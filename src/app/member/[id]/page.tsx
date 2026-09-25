@@ -4,9 +4,12 @@ import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import { Avatar, Box, Card, Stack, Typography } from "@mui/material";
 import { useParams, useRouter } from "next/navigation";
 import ButtonComponent from "@/components/common/Button/Button";
+import Loading from "@/components/common/Loading/Loading";
+import Modal from "@/components/common/Modal/Modal";
 import StatusLabelComponent from "@/components/common/StatusLabel/StatusLabel";
 import TabsComponent from "@/components/common/Tabs/Tabs";
 import AppLayout from "@/components/Layout/AppLayout";
+import { useDeleteConfirm } from "@/hooks/useDeleteConfirm";
 import useMemberDetail from "@/hooks/useMemberDetail";
 
 const MemberDetailPage = () => {
@@ -15,11 +18,15 @@ const MemberDetailPage = () => {
   const {
     member,
     profileFields,
-    handleDelete,
     skills1Labels,
     skills2Labels,
     availabilityLabels,
   } = useMemberDetail(id);
+  const { isModalOpen, isLoading, openModal, closeModal, handleConfirm } =
+    useDeleteConfirm({
+      mutationKey: "mock://members/delete", // TODO: API 接続時に修正
+      redirectPath: "/member",
+    });
 
   return (
     <AppLayout
@@ -104,7 +111,7 @@ const MemberDetailPage = () => {
                   編集
                 </ButtonComponent>
                 <ButtonComponent
-                  onClick={handleDelete}
+                  onClick={openModal}
                   sx={{
                     fontWeight: 600,
                     fontSize: 14,
@@ -291,6 +298,14 @@ const MemberDetailPage = () => {
           </Card>
         </Stack>
       </Box>
+      <Loading open={isLoading} />
+      <Modal
+        open={isModalOpen}
+        onClose={closeModal}
+        onConfirm={handleConfirm}
+        title="要員を削除しますか"
+        description="この操作は元に戻せません。関連するデータもすべて削除されます。"
+      />
     </AppLayout>
   );
 };

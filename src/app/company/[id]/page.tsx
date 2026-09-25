@@ -1,9 +1,12 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import useCompanyDetail from "@/hooks/useCompanyDetail";
 import ButtonComponent from "@/components/common/Button/Button";
+import Loading from "@/components/common/Loading/Loading";
+import Modal from "@/components/common/Modal/Modal";
 import AppLayout from "@/components/Layout/AppLayout";
+import useCompanyDetail from "@/hooks/useCompanyDetail";
+import { useDeleteConfirm } from "@/hooks/useDeleteConfirm";
 import {
   Card,
   Stack,
@@ -17,6 +20,11 @@ import {
 const CompanyDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const { fields, handleEdit } = useCompanyDetail(id);
+  const { isModalOpen, isLoading, openModal, closeModal, handleConfirm } =
+    useDeleteConfirm({
+      mutationKey: "mock://clients/delete",
+      redirectPath: "/company",
+    });
 
   return (
     <AppLayout
@@ -26,6 +34,7 @@ const CompanyDetailPage = () => {
           <ButtonComponent
             variant="outlined"
             color="error"
+            onClick={openModal}
             sx={{
               fontWeight: 600,
               fontSize: 14,
@@ -97,6 +106,14 @@ const CompanyDetailPage = () => {
           </TableBody>
         </Table>
       </Card>
+      <Loading open={isLoading} />
+      <Modal
+        open={isModalOpen}
+        onClose={closeModal}
+        onConfirm={handleConfirm}
+        title="取引先を削除しますか？"
+        description="この操作は元に戻せません。関連するデータもすべて削除されます。"
+      />
     </AppLayout>
   );
 };

@@ -46,9 +46,7 @@ vi.mock("@/utils/mockDelay", () => ({
   mockDelay: () => mockDelayState.impl(),
 }));
 
-const fillRequiredFields = async (
-  user: ReturnType<typeof userEvent.setup>,
-) => {
+const fillRequiredFields = async (user: ReturnType<typeof userEvent.setup>) => {
   await user.type(screen.getByPlaceholderText("株式会社〇〇〇"), "テスト会社");
   await user.type(screen.getByPlaceholderText("山田 太郎"), "テスト太郎");
   await user.type(screen.getByPlaceholderText("山田 花子"), "テスト花子");
