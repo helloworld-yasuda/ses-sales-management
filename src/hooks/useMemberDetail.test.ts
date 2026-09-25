@@ -34,4 +34,11 @@ describe("useMemberDetail", () => {
       "Member not found",
     );
   });
+
+  it("APIにあるIDのモックを返す", () => {
+    const { result } = renderHook(() => useMemberDetail("6"));
+
+    expect(result.current.member.id).toBe("6");
+    expect(result.current.member.name).toBe("伊藤 健");
+  });
 });
