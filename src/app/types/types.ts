@@ -38,6 +38,7 @@ export type Client = {
 export type Member = {
   memberId: number;
   memberName: string;
+  nameKana?: string; // TODO: API修正後オプショナルは削除
   mainSkills: Array<string>;
   offerRate: number;
   experienceYears: number;

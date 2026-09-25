@@ -11,6 +11,7 @@ import { useFetchData } from "./useFetchData";
 import type { Client } from "@/app/types/types";
 import { API_ROUTE } from "@/app/constants/apiRoute";
 import PAGE_SIZE from "@/app/constants/usePage";
+import { mockCompanyRows } from "@/components/company/CompanyTable.mock";
 
 // 取引先一覧テーブルのカラム定義
 const companyTableColumns: TableColumn<CompanyTableRow>[] = [
@@ -50,7 +51,10 @@ const companyTableColumns: TableColumn<CompanyTableRow>[] = [
 export const useCompanyPage = () => {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
-  const { data, error, isLoading } = useFetchData(API_ROUTE.clients);
+  const { data, error, isLoading } = useFetchData(
+    API_ROUTE.clients,
+    mockCompanyRows,
+  );
   const columns = companyTableColumns;
 
   //Tableのデータに合わせて整形

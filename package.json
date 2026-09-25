@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:api": "NEXT_PUBLIC_API_BASE=api next dev",
+    "dev:mock": "NEXT_PUBLIC_API_BASE=mock next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",

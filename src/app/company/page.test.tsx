@@ -55,11 +55,7 @@ vi.mock("@/hooks/useCompanyPage", async (importOriginal) => {
 });
 vi.mock("@/hooks/useFetchData", () => ({
   useFetchData: () => ({
-    data: mockCompanyRows.map(({ id, rank, ...rest }) => ({
-      clientId: id,
-      clientRank: rank,
-      ...rest,
-    })),
+    data: mockCompanyRows,
     error: undefined,
     isLoading: false,
   }),
