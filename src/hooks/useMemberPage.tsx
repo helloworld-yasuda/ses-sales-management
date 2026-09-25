@@ -12,6 +12,7 @@ import { calculateMonthlyRate } from "./useCalculatMonthlyRate";
 import { API_ROUTE } from "@/app/constants/apiRoute";
 import PAGE_SIZE from "@/app/constants/usePage";
 import { useFetchData } from "./useFetchData";
+import { mockMemberTableRows } from "@/components/member/MemberTable.mock";
 
 const memberTableColumns: TableColumn<MemberTableRow>[] = [
   {
@@ -105,7 +106,10 @@ export const useMemberPage = () => {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { data, error, isLoading } = useFetchData(API_ROUTE.members);
+  const { data, error, isLoading } = useFetchData(
+    API_ROUTE.members,
+    mockMemberTableRows,
+  );
 
   const columns = memberTableColumns;
 

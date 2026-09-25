@@ -51,10 +51,7 @@ vi.mock("@/hooks/useMemberPage", async (importOriginal) => {
 });
 vi.mock("@/hooks/useFetchData", () => ({
   useFetchData: () => ({
-    data: mockMemberTableRows.map(({ id, ...rest }) => ({
-      memberId: id,
-      ...rest,
-    })),
+    data: mockMemberTableRows,
     error: undefined,
     isLoading: false,
   }),

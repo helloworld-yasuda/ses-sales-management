@@ -2,7 +2,7 @@ import { Avatar, Box, Stack, Typography } from "@mui/material";
 import LinkComponent from "@/components/common/Link/Link";
 import StatusLabelComponent from "@/components/common/StatusLabel/StatusLabel";
 import type { TableColumn } from "@/components/common/Table/Table";
-import type { MemberTableRow } from "@/app/types/types";
+import type { Member, MemberTableRow } from "@/app/types/types";
 
 /** Storybook 用。画面の columns は useMemberPage 側で定義 */
 export const mockMemberTableColumns: TableColumn<MemberTableRow>[] = [
@@ -86,11 +86,10 @@ export const mockMemberTableColumns: TableColumn<MemberTableRow>[] = [
   },
 ];
 
-export const mockMemberTableRows: MemberTableRow[] = [
+export const mockMemberTableRows: Member[] = [
   {
-    id: 1,
+    memberId: 1,
     memberName: "佐藤 健太",
-    nameKana: "サトウ ケンタ",
     mainSkills: ["React", "TypeScript", "Node.js", "AWS"],
     offerRate: 850000,
     experienceYears: 8,
@@ -98,9 +97,8 @@ export const mockMemberTableRows: MemberTableRow[] = [
     skillSheetUrl: "https://example.com/skill-sheet",
   },
   {
-    id: 2,
+    memberId: 2,
     memberName: "田中 美咲",
-    nameKana: "タナカ ミサキ",
     mainSkills: ["Java", "Spring Boot", "PostgreSQL"],
     offerRate: 750000,
     experienceYears: 6,
@@ -108,9 +106,8 @@ export const mockMemberTableRows: MemberTableRow[] = [
     skillSheetUrl: "https://example.com/skill-sheet",
   },
   {
-    id: 3,
+    memberId: 3,
     memberName: "鈴木 一郎",
-    nameKana: "スズキ イチロウ",
     mainSkills: ["Vue.js", "PHP", "Laravel", "Docker"],
     offerRate: 700000,
     experienceYears: 5,
@@ -118,9 +115,8 @@ export const mockMemberTableRows: MemberTableRow[] = [
     skillSheetUrl: "https://example.com/skill-sheet",
   },
   {
-    id: 4,
+    memberId: 4,
     memberName: "高橋 優子",
-    nameKana: "タカハシ ユウコ",
     mainSkills: ["Python", "Django", "AWS", "Terraform"],
     offerRate: 900000,
     experienceYears: 10,
@@ -128,9 +124,8 @@ export const mockMemberTableRows: MemberTableRow[] = [
     skillSheetUrl: "https://example.com/skill-sheet",
   },
   {
-    id: 5,
+    memberId: 5,
     memberName: "伊藤 直樹",
-    nameKana: "イトウ ナオキ",
     mainSkills: ["Go", "Kubernetes", "GCP"],
     offerRate: 880000,
     experienceYears: 9,
@@ -138,9 +133,8 @@ export const mockMemberTableRows: MemberTableRow[] = [
     skillSheetUrl: "https://example.com/skill-sheet",
   },
   {
-    id: 6,
+    memberId: 6,
     memberName: "渡辺 彩",
-    nameKana: "ワタナベ アヤ",
     mainSkills: ["Swift", "iOS", "Firebase"],
     offerRate: 800000,
     experienceYears: 7,
@@ -148,9 +142,8 @@ export const mockMemberTableRows: MemberTableRow[] = [
     skillSheetUrl: "https://example.com/skill-sheet",
   },
   {
-    id: 7,
+    memberId: 7,
     memberName: "中村 翔",
-    nameKana: "ナカムラ ショウ",
     mainSkills: ["Kotlin", "Android", "GraphQL"],
     offerRate: 780000,
     experienceYears: 6,
@@ -158,9 +151,8 @@ export const mockMemberTableRows: MemberTableRow[] = [
     skillSheetUrl: "https://example.com/skill-sheet",
   },
   {
-    id: 8,
+    memberId: 8,
     memberName: "小林 美咲",
-    nameKana: "コバヤシ ミサキ",
     mainSkills: ["C#", "NET", "Azure"],
     offerRate: 820000,
     experienceYears: 8,
@@ -168,9 +160,8 @@ export const mockMemberTableRows: MemberTableRow[] = [
     skillSheetUrl: "https://example.com/skill-sheet",
   },
   {
-    id: 9,
+    memberId: 9,
     memberName: "加藤 大輔",
-    nameKana: "カトウ ダイスケ",
     mainSkills: ["Ruby", "Rails", "MySQL"],
     offerRate: 720000,
     experienceYears: 5,
@@ -178,9 +169,8 @@ export const mockMemberTableRows: MemberTableRow[] = [
     skillSheetUrl: "https://example.com/skill-sheet",
   },
   {
-    id: 10,
+    memberId: 10,
     memberName: "吉田 真由",
-    nameKana: "ヨシダ マユ",
     mainSkills: ["Flutter", "Dart", "Firebase"],
     offerRate: 760000,
     experienceYears: 4,
@@ -188,9 +178,8 @@ export const mockMemberTableRows: MemberTableRow[] = [
     skillSheetUrl: "https://example.com/skill-sheet",
   },
   {
-    id: 11,
+    memberId: 11,
     memberName: "山本 健",
-    nameKana: "ヤマモト ケン",
     mainSkills: ["Scala", "Spark", "Kafka"],
     offerRate: 950000,
     experienceYears: 11,
@@ -198,9 +187,8 @@ export const mockMemberTableRows: MemberTableRow[] = [
     skillSheetUrl: "https://example.com/skill-sheet",
   },
   {
-    id: 12,
+    memberId: 12,
     memberName: "松本 裕子",
-    nameKana: "マツモト ユウコ",
     mainSkills: ["React", "Next.js", "TypeScript"],
     offerRate: 840000,
     experienceYears: 7,
