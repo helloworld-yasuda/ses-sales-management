@@ -33,7 +33,7 @@ const AppLayout = ({ title, actions, children }: AppLayoutProps) => {
   }
 
   return (
-    <Box sx={{ display: "flex", height: "100vh" }}>
+    <Box sx={{ display: "flex", minHeight: "100vh" }}>
       <Sidebar
         userName={user.userName}
         role={user.role}
@@ -44,7 +44,7 @@ const AppLayout = ({ title, actions, children }: AppLayoutProps) => {
         sx={{
           flexGrow: 1,
           minWidth: 0,
-          height: "100vh",
+          minHeight: "100vh",
           display: "flex",
           flexDirection: "column",
         }}
@@ -53,7 +53,6 @@ const AppLayout = ({ title, actions, children }: AppLayoutProps) => {
         <Box
           sx={{
             flex: 1,
-            minHeight: 0,
             display: "flex",
             flexDirection: "column",
           }}
